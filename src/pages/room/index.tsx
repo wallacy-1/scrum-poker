@@ -1,117 +1,124 @@
 import { useForm } from "react-hook-form";
 import { Board, Button, Deck, FormInput, Player } from "../../components/atoms";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useParams } from "react-router-dom";
+import socket from "../../services/scrum-poker/webSocketService";
+import { getPlayer } from "../../utils/getPlayer.utils";
 
 function Room() {
-  const roomForm = useForm();
+  const [participants, setParticipants] = useState([]);
+  const player = useMemo(() => {
+    return getPlayer(participants);
+  }, [participants]);
 
-  const [playerName, setPlayerName] = useState("");
-  const [players, setPlayers] = useState([]);
-  const [selectedCard, setSelectedCard] = useState(null);
   const [showCards, setShowCards] = useState(false);
-  const [playerCards, setPlayerCards] = useState({});
+  console.log("player: " + JSON.stringify(player));
+  const { roomId } = useParams();
+  const playerInfoForm = useForm();
 
   useEffect(() => {
-    // socket.on('updatePlayers', (rooms) => {
-    //   setPlayers(Object.keys(rooms));
-    // });
-    // socket.on('cardChosen', (playerName, cardValue) => {
-    //   setPlayerCards((prevPlayerCards) => ({
-    //     ...prevPlayerCards,
-    //     [playerName]: cardValue,
-    //   }));
-    // });
-    // socket.on('reveal', () => {
-    //   setShowCards(true);
-    // });
-    // return () => {
-    //   socket.disconnect();
-    // };
+    console.log("useEffect", socket.id);
+    socket.connect();
+
+    socket.on("newPlayer", (newPlayer) => {
+      console.log("socket received - newPlayer: ", newPlayer);
+      setParticipants(newPlayer);
+    });
+
+    socket.on("playerKicked", (playerId: string) => {
+      if (playerId === socket.id) {
+        alert("The admin kick you from room.");
+        window.location.href = "/";
+      }
+
+      setParticipants((prev) => {
+        return prev.filter(
+          (participant: { id: string }) => participant.id !== playerId
+        );
+      });
+    });
+
+    socket.on("playerHasChosen", (playerId) => {
+      console.log(`PlayerId: ${playerId} as chosen a card!`);
+    });
+
+    socket.on("newRound", () => {
+      setShowCards(false);
+      console.log(`Admin reset all points`);
+    });
+
+    socket.on("revealCards", (players) => {
+      setShowCards(true);
+      setParticipants(players);
+    });
+
+    socket.on("error", (message: string) => {
+      console.log("socket received - ERROR: " + message);
+    });
+
+    socket.on("disconnect", () => {
+      // if (playerName) {
+      console.log("socket received - disconect");
+      // alert("Disconnected from server");
+      // }
+    });
+
+    return () => {
+      socket.disconnect();
+    };
   }, []);
-
-  const handleCreateRoom = (data: any) => {
-    console.log("handleJoin", data);
-    // socket.emit('join', playerName);
-  };
-
-  const handleJoinRoom = (data: any) => {
-    console.log("handleJoin", data);
-    // socket.emit('join', playerName);
-  };
-
-  const handleCardSelect = (cardValue: any) => {
-    console.log("handleCardSelect", cardValue);
-    setSelectedCard(cardValue);
-    // socket.emit('chooseCard', playerName, cardValue);
-  };
 
   const handleRevealCards = () => {
     console.log("handleRevealCards");
-    // socket.emit('revealCards');
+    socket.emit("revealCards", roomId);
+  };
+
+  const handleJoinRoom = (data: any) => {
+    if (roomId) {
+      socket.emit("joinRoom", roomId);
+    } else {
+      alert("Invalid room");
+    }
   };
 
   const handleRestartVoting = () => {
     console.log("handleRestartVoting");
-    // socket.emit('restartVoting');
+    socket.emit("reset");
   };
 
   return (
-    <div className="flex w-full h-screen justify-evenly">
-      <div>
-        <p>Player module</p>
-        <Deck onCardSelect={handleCardSelect} />
-        <Player name={playerName} selectedCard={selectedCard} />
-        <Board
-          players={players}
-          playerCards={playerCards}
-          showCards={showCards}
-        />
+    <div>
+      <div className="flex w-full h-screen justify-evenly">
+        <div>
+          <p>Player action:</p>
+          <Player name={"aaa"} selectedCard={""} />
+        </div>
+        <div>
+          <p>Modal enter room:</p>
+          <form onSubmit={playerInfoForm.handleSubmit(handleJoinRoom)}>
+            <FormInput
+              id="playerName"
+              type="text"
+              label="Player name:"
+              register={playerInfoForm.register("playerName")}
+              error={playerInfoForm.formState.errors.playerName}
+            />
+
+            <Button type="submit">Enter room</Button>
+          </form>
+        </div>
+        <div>
+          <p>Players:</p>
+          <Board participants={participants} showCards={showCards} />
+        </div>
+        <div>
+          <p>Room administrator actions:</p>
+          <Button onClick={handleRevealCards}>Reveal cards</Button>
+          <Button onClick={handleRestartVoting}>Restart round</Button>
+          <Button onClick={handleRevealCards}>End room</Button>
+        </div>
       </div>
-      <div>
-        <p>room module</p>
-        <p>New room:</p>
-        <form onSubmit={roomForm.handleSubmit(handleCreateRoom)}>
-          <FormInput
-            id="roomName"
-            type="text"
-            label="Room name:"
-            register={roomForm.register("roomName")}
-            error={roomForm.formState.errors.roomName}
-          />
-
-          <Button type="submit">Create room</Button>
-        </form>
-
-        <p>Join room:</p>
-        <form onSubmit={roomForm.handleSubmit(handleJoinRoom)}>
-          <FormInput
-            id="roomId"
-            type="number"
-            label="Room id:"
-            register={roomForm.register("roomId")}
-            error={roomForm.formState.errors.roomId}
-          />
-
-          <FormInput
-            id="playerName"
-            type="text"
-            label="Player name:"
-            register={roomForm.register("playerName")}
-            error={roomForm.formState.errors.playerName}
-          />
-
-          <Button type="submit">Enter room</Button>
-        </form>
-      </div>
-      <div>
-        <p>Room administrator module</p>
-        <p>All players:</p>
-
-        <p>Actions:</p>
-        <Button onClick={handleRevealCards}>Reveal cards</Button>
-        <Button onClick={handleRestartVoting}>Restart round</Button>
-        <Button onClick={handleRevealCards}>End room</Button>
-      </div>
+      <Deck />
     </div>
   );
 }
