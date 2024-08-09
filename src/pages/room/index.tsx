@@ -87,14 +87,7 @@ function Room() {
   };
 
   return (
-    <div>
-      <div className="flex w-full h-screen justify-evenly">
-        <div>
-          <p>Player action:</p>
-          <Player name={"aaa"} selectedCard={""} />
-        </div>
-        <div>
-          <p>Modal enter room:</p>
+    <div className="flex flex-col justify-between h-screen">
           <form onSubmit={playerInfoForm.handleSubmit(handleJoinRoom)}>
             <FormInput
               id="playerName"
