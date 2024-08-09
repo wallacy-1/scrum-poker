@@ -1,14 +1,22 @@
-import Card from "../card";
+import socket from "../../../services/scrum-poker/webSocketService";
+import PokerCard from "../poker-card";
 
-const Deck = ({ onCardSelect }: any) => {
+const Deck = () => {
   const cardValues = [0, 1, 2, 3, 5, 8, 13, 20, 100];
+
+  const handleCardSelect = (card: number) => {
+    socket.emit("chooseCard", card);
+  };
 
   return (
     <div>
-      <p>Cards</p>
-      <div className="flex">
+      <div className="flex flex-wrap w-full px-4 pb-2 grow">
         {cardValues.map((value) => (
-          <Card key={value} value={value} onClick={() => onCardSelect(value)} />
+          <PokerCard
+            key={value}
+            value={value}
+            onClick={() => handleCardSelect(value)}
+          />
         ))}
       </div>
     </div>
