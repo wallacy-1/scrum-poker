@@ -1,19 +1,20 @@
-import { kickPlayer } from "../../../services/scrum-poker/webSocketService";
+import socket from "../../../services/scrum-poker/webSocketService";
 import Button from "../button";
 
-const Board = ({ players, playerCards }: any) => {
+const Board = ({ participants }: any) => {
   const handleKickPlayer = (playerId: string) => {
     console.log("handleKickPlayer - called with id: " + playerId);
     // verify if is admin
-    kickPlayer(playerId);
+    socket.emit("kickPlayer", playerId);
   };
 
   return (
     <div className="flex flex-col board">
-      {players.map((player: any, index: string) => (
+      {participants.map((player: any, index: string) => (
         <div key={index}>
           <div className="player-card">
-            {player.id} - role: {player.role}
+            {player.name} - role: {player.role}
+            {socket.id === player.id ? "(You)" : ""}
           </div>
           {/* only show if user is admin */}
           <Button onClick={() => handleKickPlayer(player.id)}>

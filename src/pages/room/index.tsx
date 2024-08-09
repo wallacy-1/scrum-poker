@@ -4,6 +4,8 @@ import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import socket from "../../services/scrum-poker/webSocketService";
 import { getPlayer } from "../../utils/getPlayer.utils";
+import { Modal } from "../../components/organisms";
+
 interface Participant {
   id: string;
   name: string;
@@ -16,8 +18,8 @@ function Room() {
     return getPlayer(participants);
   }, [participants]);
 
+  const [joinModal, setJoinModal] = useState(true);
   const [showCards, setShowCards] = useState(false);
-  console.log("player: " + JSON.stringify(player));
   const { roomId } = useParams();
   const playerInfoForm = useForm();
 
@@ -68,11 +70,13 @@ function Room() {
 
     socket.on("error", (message: string) => {
       console.log("socket received - ERROR: " + message);
+      alert(message);
+      window.location.href = "/";
     });
 
     socket.on("disconnect", () => {
       // if (playerName) {
-      console.log("socket received - disconect");
+      console.log("socket received - disconnect");
       // alert("Disconnected from server");
       // }
     });
@@ -87,12 +91,13 @@ function Room() {
     socket.emit("revealCards", roomId);
   };
 
-  const handleJoinRoom = (data: any) => {
-    if (roomId) {
-      socket.emit("joinRoom", roomId);
-    } else {
-      alert("Invalid room");
-    }
+  const handleJoinRoom = (data: { playerName?: string }) => {
+    const { playerName } = data;
+
+    if (!playerName) return;
+
+    socket.emit("joinRoom", { roomId, playerName });
+    setJoinModal(false);
   };
 
   const handleRestartVoting = () => {
@@ -102,18 +107,22 @@ function Room() {
 
   return (
     <div className="flex flex-col justify-between h-screen">
-          <form onSubmit={playerInfoForm.handleSubmit(handleJoinRoom)}>
-            <FormInput
-              id="playerName"
-              type="text"
-              label="Player name:"
-              register={playerInfoForm.register("playerName")}
-              error={playerInfoForm.formState.errors.playerName}
-            />
+      <Modal isOpen={joinModal} title={"Enter the room."}>
+        <form onSubmit={playerInfoForm.handleSubmit(handleJoinRoom)}>
+          <FormInput
+            id="playerName"
+            type="text"
+            label="Player name:"
+            register={playerInfoForm.register("playerName", {
+              required: "The player's name is mandatory.",
+            })}
+            error={playerInfoForm.formState.errors.playerName}
+          />
 
-            <Button type="submit">Enter room</Button>
-          </form>
-        </div>
+          <Button type="submit">Enter room</Button>
+        </form>
+      </Modal>
+      <div className="flex w-full justify-evenly">
         <div>
           <p>Players:</p>
           <Board participants={participants} showCards={showCards} />

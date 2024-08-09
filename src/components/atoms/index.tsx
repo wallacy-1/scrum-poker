@@ -3,3 +3,4 @@ export { default as Board } from "./board";
 export { default as Card } from "./card";
 export { default as Deck } from "./deck";
 export { default as Button } from "./button";
+export { default as PokerCard } from "./poker-card";
