@@ -1,12 +1,17 @@
 import { useForm } from "react-hook-form";
-import { Board, Button, Deck, FormInput, Player } from "../../components/atoms";
+import { Board, Button, Deck, FormInput } from "../../components/atoms";
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import socket from "../../services/scrum-poker/webSocketService";
 import { getPlayer } from "../../utils/getPlayer.utils";
+interface Participant {
+  id: string;
+  name: string;
+  choice: boolean;
+}
 
 function Room() {
-  const [participants, setParticipants] = useState([]);
+  const [participants, setParticipants] = useState<Participant[]>([]);
   const player = useMemo(() => {
     return getPlayer(participants);
   }, [participants]);
@@ -38,8 +43,17 @@ function Room() {
       });
     });
 
-    socket.on("playerHasChosen", (playerId) => {
-      console.log(`PlayerId: ${playerId} as chosen a card!`);
+    socket.on("playerSelectedCard", (playerId) => {
+      console.log(`PlayerId: ${playerId} has chosen a card!`);
+
+      setParticipants((prevParticipants) => {
+        return prevParticipants.map((participant) => {
+          if (participant.id === playerId) {
+            return { ...participant, choice: true };
+          }
+          return participant;
+        });
+      });
     });
 
     socket.on("newRound", () => {
