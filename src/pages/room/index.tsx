@@ -5,20 +5,20 @@ import { useParams } from "react-router-dom";
 import socket from "../../services/scrum-poker/webSocketService";
 import { getMainPlayer } from "../../utils";
 import { Modal } from "../../components/organisms";
-
-interface Participant {
-  id: string;
-  name: string;
-  choice: boolean;
-}
+import {
+  PlayerDataInterface,
+  PlayerRolesEnum,
+  RoomDataInterface,
+} from "./interfaces";
 
 function Room() {
+  const [roomData, setRoomData] = useState<RoomDataInterface>();
+
   const mainPlayer: PlayerDataInterface | null = useMemo(() => {
     return getMainPlayer(roomData?.players);
   }, [roomData?.players]);
 
   const [joinModal, setJoinModal] = useState(true);
-  const [showCards, setShowCards] = useState(false);
   const { roomId } = useParams();
   const playerInfoForm = useForm();
 
@@ -26,9 +26,9 @@ function Room() {
     console.log("useEffect", socket.id);
     socket.connect();
 
-    socket.on("newPlayer", (newPlayer) => {
-      console.log("socket received - newPlayer: ", newPlayer);
-      setParticipants(newPlayer);
+    socket.on("roomUpdate", (newRoomData) => {
+      console.log("socket received - newRoomData: ", newRoomData);
+      setRoomData(newRoomData);
     });
 
     socket.on("playerKicked", (playerId: string) => {
@@ -37,34 +37,20 @@ function Room() {
         window.location.href = "/";
       }
 
-      setParticipants((prev) => {
-        return prev.filter(
-          (participant: { id: string }) => participant.id !== playerId
-        );
-      });
-    });
+      setRoomData((prev) => {
+        if (!prev) return prev;
 
-    socket.on("playerSelectedCard", (playerId) => {
-      console.log(`PlayerId: ${playerId} has chosen a card!`);
-
-      setParticipants((prevParticipants) => {
-        return prevParticipants.map((participant) => {
-          if (participant.id === playerId) {
-            return { ...participant, choice: true };
-          }
-          return participant;
-        });
+        return {
+          ...prev,
+          players: prev.players.filter(
+            (player: { id: string }) => player.id !== playerId
+          ),
+        };
       });
     });
 
     socket.on("newRound", () => {
-      setShowCards(false);
       console.log(`Admin reset all points`);
-    });
-
-    socket.on("revealCards", (players) => {
-      setShowCards(true);
-      setParticipants(players);
     });
 
     socket.on("error", (message: string) => {
@@ -121,12 +107,7 @@ function Room() {
           <Button type="submit">Enter room</Button>
         </form>
       </Modal>
-      <div className="flex w-full justify-evenly">
-        <div>
-          <p>Players:</p>
-          <Board participants={participants} showCards={showCards} />
-        </div>
-        <div>
+      <div className="flex w-full">
           <p>Room administrator actions:</p>
           <Button onClick={handleRevealCards}>Reveal cards</Button>
           <Button onClick={handleRestartVoting}>Restart round</Button>
