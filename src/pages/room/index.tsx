@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import { Board, Button, FormInput } from "../../components/atoms";
-import { Deck } from "../../components/molecules";
+import { Button, FormInput } from "../../components/atoms";
+import { Deck, Board } from "../../components/molecules";
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import socket from "../../services/scrum-poker/webSocketService";
@@ -111,11 +111,16 @@ function Room() {
         </form>
       </Modal>
       <div className="flex w-full">
-          <p>Room administrator actions:</p>
-          <Button onClick={handleRevealCards}>Reveal cards</Button>
-          <Button onClick={handleRestartVoting}>Restart round</Button>
-          <Button onClick={handleRevealCards}>End room</Button>
-        </div>
+        <p>Room administrator actions:</p>
+        <Button onClick={handleRevealCards}>Reveal cards</Button>
+        <Button onClick={handleRestartVoting}>Restart round</Button>
+        <Button onClick={handleRevealCards}>End room</Button>
+      </div>
+      <Board
+        players={roomData?.players}
+        roomStatus={roomData?.status}
+        mainPlayerIsAdmin={mainPlayer?.role === PlayerRolesEnum.ADMIN}
+      />
       {mainPlayer?.role !== PlayerRolesEnum.OBSERVER && <Deck />}
     </div>
   );
