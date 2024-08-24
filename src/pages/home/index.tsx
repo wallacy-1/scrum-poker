@@ -1,11 +1,8 @@
-import { useForm } from "react-hook-form";
-import { FormInput, Button } from "../../components/atoms";
+import { Button } from "../../components/atoms";
 import socket from "../../services/scrum-poker/webSocketService";
 import { useEffect } from "react";
 
 function Home() {
-  const roomForm = useForm();
-
   useEffect(() => {
     socket.connect();
 
@@ -22,17 +19,10 @@ function Home() {
     };
   }, []);
 
-  const handleCreateRoom = (data: {}) => {
-    console.log(`handleCreateRoom - data: ${JSON.stringify(data)}`);
+  const handleCreateRoom = () => {
+    console.log(`handleCreateRoom`);
 
     socket.emit("createRoom");
-  };
-
-  const handleJoinRoom = (data: { roomId?: string }) => {
-    console.log(`handleJoinRoom - data: ${JSON.stringify(data)}`);
-    if (!data.roomId) return;
-
-    //joinRoom(data.roomId);
   };
 
   return (
@@ -40,23 +30,7 @@ function Home() {
       <div className="flex w-full h-screen justify-evenly">
         <div>
           <p>New room:</p>
-          <form onSubmit={roomForm.handleSubmit(handleCreateRoom)}>
-            <Button type="submit">Create room</Button>
-          </form>
-        </div>
-        <div>
-          <p>Join room:</p>
-          <form onSubmit={roomForm.handleSubmit(handleJoinRoom)}>
-            <FormInput
-              id="roomId"
-              type="text"
-              label="Room id:"
-              register={roomForm.register("roomId")}
-              error={roomForm.formState.errors.roomId}
-            />
-
-            <Button type="submit">Enter room</Button>
-          </form>
+          <Button onClick={handleCreateRoom}>Create room</Button>
         </div>
       </div>
     </div>
