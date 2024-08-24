@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
-import { Board, Button, Deck, FormInput } from "../../components/atoms";
+import { Board, Button, FormInput } from "../../components/atoms";
+import { Deck } from "../../components/molecules";
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import socket from "../../services/scrum-poker/webSocketService";
@@ -113,8 +114,7 @@ function Room() {
           <Button onClick={handleRestartVoting}>Restart round</Button>
           <Button onClick={handleRevealCards}>End room</Button>
         </div>
-      </div>
-      <Deck />
+      {mainPlayer?.role !== PlayerRolesEnum.OBSERVER && <Deck />}
     </div>
   );
 }
