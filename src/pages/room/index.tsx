@@ -3,7 +3,7 @@ import { Board, Button, Deck, FormInput } from "../../components/atoms";
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import socket from "../../services/scrum-poker/webSocketService";
-import { getPlayer } from "../../utils/getPlayer.utils";
+import { getMainPlayer } from "../../utils";
 import { Modal } from "../../components/organisms";
 
 interface Participant {
@@ -13,10 +13,9 @@ interface Participant {
 }
 
 function Room() {
-  const [participants, setParticipants] = useState<Participant[]>([]);
-  const player = useMemo(() => {
-    return getPlayer(participants);
-  }, [participants]);
+  const mainPlayer: PlayerDataInterface | null = useMemo(() => {
+    return getMainPlayer(roomData?.players);
+  }, [roomData?.players]);
 
   const [joinModal, setJoinModal] = useState(true);
   const [showCards, setShowCards] = useState(false);
