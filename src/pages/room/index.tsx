@@ -78,17 +78,19 @@ function Room() {
   };
 
   const handleJoinRoom = (data: { playerName?: string }) => {
-    const { playerName } = data;
+    const nameNoWhiteSpace = data.playerName
+      ? data.playerName.trim()
+      : undefined;
 
-    if (!playerName) return;
+    if (!nameNoWhiteSpace) return;
 
-    socket.emit("joinRoom", { roomId, playerName });
+    socket.emit("joinRoom", { roomId, playerName: nameNoWhiteSpace });
     setJoinModal(false);
   };
 
   const handleRestartVoting = () => {
     console.log("handleRestartVoting");
-    socket.emit("reset");
+    socket.emit("reset", roomId);
   };
 
   return (
