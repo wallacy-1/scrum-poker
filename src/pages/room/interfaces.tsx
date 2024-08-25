@@ -11,13 +11,13 @@ export interface RoomDataInterface {
 
 export enum PlayerRolesEnum {
   ADMIN = "ADMIN",
-  OBSERVER = "OBSERVER",
   COMMON = "COMMON",
 }
 
 export interface PlayerDataInterface {
   id: string;
   name: string;
+  canVote: boolean;
   role: PlayerRolesEnum;
   choice: boolean;
 }

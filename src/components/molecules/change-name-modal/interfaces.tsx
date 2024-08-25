@@ -1,5 +1,5 @@
 export interface ChangeNameModalPropsInterface {
-  name: string;
+  oldName: string;
   onSuccessFunction: (newName: string) => void;
   onCancelFunction: () => void;
 }

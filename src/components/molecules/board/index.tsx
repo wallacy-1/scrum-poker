@@ -18,6 +18,7 @@ const Board = ({
           name={player.name}
           choice={player.choice}
           role={player.role}
+          canVote={player.canVote}
           mainPlayerIsAdmin={mainPlayerIsAdmin}
         />
       ))}

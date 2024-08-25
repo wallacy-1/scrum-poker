@@ -121,7 +121,7 @@ function Room() {
         roomStatus={roomData?.status}
         mainPlayerIsAdmin={mainPlayer?.role === PlayerRolesEnum.ADMIN}
       />
-      {mainPlayer?.role !== PlayerRolesEnum.OBSERVER && <Deck />}
+      {mainPlayer?.canVote && <Deck />}
     </div>
   );
 }

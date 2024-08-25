@@ -4,7 +4,7 @@ import { ChangeNameModalPropsInterface } from "./interfaces";
 import { useForm } from "react-hook-form";
 
 const ChangeNameModal = ({
-  name,
+  oldName,
   onSuccessFunction,
   onCancelFunction,
 }: ChangeNameModalPropsInterface) => {
@@ -15,7 +15,7 @@ const ChangeNameModal = ({
       ? data.newPlayerName.trim()
       : undefined;
 
-    if (!nameNoWhiteSpace || nameNoWhiteSpace === name) return;
+    if (!nameNoWhiteSpace || nameNoWhiteSpace === oldName) return;
 
     onSuccessFunction(nameNoWhiteSpace);
   };
@@ -32,6 +32,7 @@ const ChangeNameModal = ({
           type="text"
           label="New name:"
           register={register("newPlayerName", {
+            value: oldName,
             required: "The player's name is mandatory.",
           })}
           error={formState.errors.newPlayerName}

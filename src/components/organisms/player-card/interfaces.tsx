@@ -10,4 +10,5 @@ export interface PlayerCardPropsInterface {
   choice: string | number | boolean;
   role: PlayerRolesEnum;
   mainPlayerIsAdmin: boolean;
+  canVote: boolean;
 }

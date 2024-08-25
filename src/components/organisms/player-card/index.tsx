@@ -13,11 +13,7 @@ import {
   RoomStatusEnum,
 } from "../../../pages/room/interfaces";
 import { useCallback, useMemo, useState } from "react";
-import {
-  ChangeChoiceModal,
-  ChangeNameModal,
-  PlayerConfigurationMenu,
-} from "../../molecules";
+import { ChangeChoiceModal, PlayerConfigurationMenu } from "../../molecules";
 
 const PlayerCard = ({
   id,
@@ -26,8 +22,8 @@ const PlayerCard = ({
   choice,
   role,
   mainPlayerIsAdmin,
+  canVote,
 }: PlayerCardPropsInterface) => {
-  const [alterNameModal, setAlterNameModal] = useState(false);
   const [alterChoiceModal, setAlterChoiceModal] = useState(false);
 
   const cardValues = [0, 1, 2, 3, 5, 8, 13, 20, 100];
@@ -35,17 +31,9 @@ const PlayerCard = ({
     () => (choice === false ? "bg-red-300" : "bg-green-300"),
     [choice]
   );
-  const { isAdmin, isObserver } = useMemo(() => {
-    return {
-      isAdmin: role === PlayerRolesEnum.ADMIN,
-      isObserver: role === PlayerRolesEnum.OBSERVER,
-    };
+  const isAdmin = useMemo(() => {
+    return role === PlayerRolesEnum.ADMIN;
   }, [role]);
-
-  const handleChangeName = useCallback((newName: string) => {
-    socket.emit("changeName", newName);
-    setAlterNameModal(false);
-  }, []);
 
   const handleChangeChoice = useCallback((newChoice: number | string) => {
     socket.emit("adminChangePlayerChoice", newChoice);
@@ -68,33 +56,20 @@ const PlayerCard = ({
           <p className="w-9/12" title={name}>
             {getShortString(name, 9)}
           </p>
-          {mainPlayerIsAdmin && !isAdmin && (
-            <PlayerConfigurationMenu id={id} role={role} />
-          )}
-
-          {id === socket.id && (
-            <FontAwesomeIcon
-              onClick={() => setAlterNameModal(true)}
-              className="ml-2 cursor-pointer"
-              title={"Change name."}
-              color="#696969"
-              icon={faPenToSquare}
-              size="lg"
-            />
-          )}
-
-          {alterNameModal && (
-            <ChangeNameModal
+          {(mainPlayerIsAdmin || id === socket.id) && (
+            <PlayerConfigurationMenu
+              id={id}
               name={name}
-              onSuccessFunction={handleChangeName}
-              onCancelFunction={() => setAlterNameModal(false)}
+              canVote={canVote}
+              isAdmin={isAdmin}
+              showAdminActions={mainPlayerIsAdmin}
             />
           )}
         </div>
       </div>
-      <PokerCard className={isObserver ? "bg-blue-300" : cardColor}>
+      <PokerCard className={canVote ? cardColor : "bg-blue-300"}>
         <div className="flex items-center justify-center w-full h-full">
-          {isObserver ? (
+          {!canVote ? (
             <FontAwesomeIcon
               title="This player is designated as an observer and is not permitted to vote."
               className="mb-3 ml-1"
