@@ -28,9 +28,9 @@ const PlayerConfigurationMenu = ({
     socket.emit("kickPlayer", id);
   }, [id]);
 
-  const handleVoteToggle = useCallback(() => {
-    console.log(`handleVoteToggle - called with targetId: ${id}`);
-    socket.emit("changeRole", { targetId: id, canVote: !canVote });
+  const handleToggleVotingStatus = useCallback(() => {
+    console.log(`handleToggleVotingStatus - called with targetId: ${id}`);
+    socket.emit("updateVotingStatus", { targetId: id, canVote: !canVote });
   }, [canVote, id]);
 
   const handleTransferAdmin = useCallback(() => {
@@ -51,7 +51,7 @@ const PlayerConfigurationMenu = ({
     <Menu title="Player">
       {showAdminActions && (
         <>
-          <MenuItem onClick={handleVoteToggle}>
+          <MenuItem onClick={handleToggleVotingStatus}>
             <FontAwesomeIcon icon={canVote ? faLock : faLockOpen} size="sm" />
             <p>{canVote ? "Prevent voting" : "Allow voting"}</p>
           </MenuItem>
