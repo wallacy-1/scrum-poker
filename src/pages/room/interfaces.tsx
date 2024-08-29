@@ -19,5 +19,6 @@ export interface PlayerDataInterface {
   name: string;
   canVote: boolean;
   role: PlayerRolesEnum;
-  choice: boolean;
+  choice: string | boolean;
+  previousChoiceBeforeAdminChange?: string | boolean;
 }

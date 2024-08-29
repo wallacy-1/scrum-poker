@@ -20,9 +20,10 @@ const PlayerCard = ({
   roomStatus,
   mainPlayerIsAdmin,
 }: PlayerCardPropsInterface) => {
-  const [alterChoiceModal, setAlterChoiceModal] = useState(false);
+  const [adminAlterChoiceModal, setAdminAlterChoiceModal] = useState(false);
   const { name, choice, id, role, canVote } = player;
   const cardValues = [0, 1, 2, 3, 5, 8, 13, 20, 100];
+
   const cardColor = useMemo(
     () => (choice === false ? "bg-red-300" : "bg-green-300"),
     [choice]
@@ -31,10 +32,13 @@ const PlayerCard = ({
     return role === PlayerRolesEnum.ADMIN;
   }, [role]);
 
-  const handleChangeChoice = useCallback((newChoice: number | string) => {
-    socket.emit("adminChangePlayerChoice", newChoice);
-    setAlterChoiceModal(false);
-  }, []);
+  const handleAdminChangePlayerChoice = useCallback(
+    (choice: number | string) => {
+      socket.emit("adminChangePlayerChoice", { targetId: id, choice });
+      setAdminAlterChoiceModal(false);
+    },
+    [id]
+  );
 
   return (
     <div className="flex flex-col justify-end px-1 w-34">
@@ -64,7 +68,16 @@ const PlayerCard = ({
         </div>
       </div>
       <PokerCard className={canVote ? cardColor : "bg-blue-300"}>
-        <div className="flex items-center justify-center w-full h-full">
+        <div className="relative flex flex-col items-center justify-center w-full h-full">
+          {player.previousChoiceBeforeAdminChange && (
+            <FontAwesomeIcon
+              title={`Admin changed this player's choice from ${player.previousChoiceBeforeAdminChange} to ${choice}.`}
+              className="absolute top-6"
+              icon={faCrown}
+              size="xl"
+              color="#595b5f"
+            />
+          )}
           {!canVote ? (
             <FontAwesomeIcon
               title="This player is designated as an observer and is not permitted to vote."
@@ -77,26 +90,29 @@ const PlayerCard = ({
             roomStatus === RoomStatusEnum.REVEAL &&
             choice !== false && (
               <>
-                <p className="pb-4 pl-6 text-4xl"> {choice} </p>
-                <FontAwesomeIcon
-                  onClick={() => setAlterChoiceModal(true)}
-                  className="mb-10 ml-1 cursor-pointer"
-                  title="Change player choice."
-                  icon={faPenToSquare}
-                  color="#696969"
-                  size="sm"
-                />
+                <p className="pb-4 text-4xl">{choice}</p>
+
+                {mainPlayerIsAdmin && (
+                  <FontAwesomeIcon
+                    onClick={() => setAdminAlterChoiceModal(true)}
+                    className="absolute cursor-pointer top-6 right-1"
+                    title="Change player choice."
+                    icon={faPenToSquare}
+                    color="#696969"
+                    size="lg"
+                  />
+                )}
               </>
             )
           )}
         </div>
 
-        {alterChoiceModal && (
+        {adminAlterChoiceModal && (
           <ChangeChoiceModal
             name={name}
             cardValues={cardValues}
-            onSuccessFunction={handleChangeChoice}
-            onCancelFunction={() => setAlterChoiceModal(false)}
+            onSuccessFunction={handleAdminChangePlayerChoice}
+            onCancelFunction={() => setAdminAlterChoiceModal(false)}
           />
         )}
       </PokerCard>
