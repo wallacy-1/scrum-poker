@@ -95,6 +95,21 @@ function Room() {
 
   return (
     <div className="flex flex-col justify-between h-screen">
+      <div className="flex w-full">
+        <p>Room administrator actions:</p>
+        <Button onClick={handleRevealCards}>Reveal cards</Button>
+        <Button onClick={handleRestartVoting}>Restart round</Button>
+        <Button onClick={handleRevealCards}>End room</Button>
+      </div>
+
+      <Board
+        players={roomData?.players}
+        roomStatus={roomData?.status}
+        mainPlayerIsAdmin={mainPlayer?.role === PlayerRolesEnum.ADMIN}
+      />
+
+      <div className="w-full">{mainPlayer?.canVote && <Deck />}</div>
+
       <Modal isOpen={joinModal} title={"Enter the room."}>
         <form onSubmit={playerInfoForm.handleSubmit(handleJoinRoom)}>
           <FormInput
@@ -110,18 +125,6 @@ function Room() {
           <Button type="submit">Enter room</Button>
         </form>
       </Modal>
-      <div className="flex w-full">
-        <p>Room administrator actions:</p>
-        <Button onClick={handleRevealCards}>Reveal cards</Button>
-        <Button onClick={handleRestartVoting}>Restart round</Button>
-        <Button onClick={handleRevealCards}>End room</Button>
-      </div>
-      <Board
-        players={roomData?.players}
-        roomStatus={roomData?.status}
-        mainPlayerIsAdmin={mainPlayer?.role === PlayerRolesEnum.ADMIN}
-      />
-      {mainPlayer?.canVote && <Deck />}
     </div>
   );
 }

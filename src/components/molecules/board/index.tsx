@@ -9,7 +9,7 @@ const Board = ({
   if (!players) return null;
 
   return (
-    <div className="flex w-full board">
+    <div className="flex flex-wrap w-full">
       {players.map((player, index: number) => (
         <PlayerCard
           key={index}
