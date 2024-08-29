@@ -1,14 +1,10 @@
 import {
-  PlayerRolesEnum,
+  PlayerDataInterface,
   RoomStatusEnum,
 } from "../../../pages/room/interfaces";
 
 export interface PlayerCardPropsInterface {
-  id: string;
-  name: string;
+  player: PlayerDataInterface;
   roomStatus?: RoomStatusEnum;
-  choice: string | number | boolean;
-  role: PlayerRolesEnum;
   mainPlayerIsAdmin: boolean;
-  canVote: boolean;
 }

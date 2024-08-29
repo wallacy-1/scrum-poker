@@ -13,12 +13,8 @@ const Board = ({
       {players.map((player, index: number) => (
         <PlayerCard
           key={index}
-          id={player.id}
+          player={player}
           roomStatus={roomStatus}
-          name={player.name}
-          choice={player.choice}
-          role={player.role}
-          canVote={player.canVote}
           mainPlayerIsAdmin={mainPlayerIsAdmin}
         />
       ))}

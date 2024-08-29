@@ -16,16 +16,12 @@ import { useCallback, useMemo, useState } from "react";
 import { ChangeChoiceModal, PlayerConfigurationMenu } from "../../molecules";
 
 const PlayerCard = ({
-  id,
-  name,
+  player,
   roomStatus,
-  choice,
-  role,
   mainPlayerIsAdmin,
-  canVote,
 }: PlayerCardPropsInterface) => {
   const [alterChoiceModal, setAlterChoiceModal] = useState(false);
-
+  const { name, choice, id, role, canVote } = player;
   const cardValues = [0, 1, 2, 3, 5, 8, 13, 20, 100];
   const cardColor = useMemo(
     () => (choice === false ? "bg-red-300" : "bg-green-300"),
