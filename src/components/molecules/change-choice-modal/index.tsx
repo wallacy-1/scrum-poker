@@ -32,7 +32,9 @@ const ChangeChoiceModal = ({
         {cardValues.map((value: number | string) => (
           <div
             onClick={() => setChoice(value)}
-            className="w-10 h-12 pt-3 mx-2 text-center bg-blue-400 rounded cursor-pointer select-none"
+            className={`${
+              choice === value ? "bg-green-400" : "bg-blue-400"
+            } w-10 h-12 pt-3 mx-2 text-center rounded cursor-pointer select-none`}
           >
             {value}
           </div>
@@ -40,10 +42,10 @@ const ChangeChoiceModal = ({
       </div>
 
       <div className="flex justify-between mt-3 border-t">
-        <Button onClick={() => handleChangeChoice()} disabled={choice === null}>
-          Change
-        </Button>
         <Button onClick={() => handleCancel()}>Cancel</Button>
+        <Button onClick={() => handleChangeChoice()} disabled={choice === null}>
+          Save
+        </Button>
       </div>
     </Modal>
   );
