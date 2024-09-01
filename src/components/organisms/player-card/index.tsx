@@ -25,7 +25,7 @@ const PlayerCard = ({
   const cardValues = [0, 1, 2, 3, 5, 8, 13, 20, 100];
 
   const cardColor = useMemo(
-    () => (choice === false ? "bg-red-300" : "bg-green-300"),
+    () => (choice === false ? "bg-red-400" : "bg-green-400"),
     [choice]
   );
   const isAdmin = useMemo(() => {
@@ -67,7 +67,7 @@ const PlayerCard = ({
           )}
         </div>
       </div>
-      <PokerCard className={canVote ? cardColor : "bg-blue-300"}>
+      <PokerCard className={canVote ? cardColor : "bg-blue-400"}>
         <div className="relative flex flex-col items-center justify-center w-full h-full">
           {player.previousChoiceBeforeAdminChange && (
             <FontAwesomeIcon

@@ -26,7 +26,7 @@ function Home() {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center bg-slate-50">
       <div className="flex w-full h-screen justify-evenly">
         <div>
           <p>New room:</p>

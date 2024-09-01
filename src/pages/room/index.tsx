@@ -94,7 +94,7 @@ function Room() {
   };
 
   return (
-    <div className="flex flex-col justify-between h-screen">
+    <div className="flex flex-col justify-between h-screen bg-slate-50">
       <div className="flex w-full">
         <p>Room administrator actions:</p>
         <Button onClick={handleRevealCards}>Reveal cards</Button>
