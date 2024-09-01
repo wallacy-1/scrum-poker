@@ -1,14 +1,11 @@
 const FormInput = ({ register, error, label, id, type }: any) => {
   return (
     <>
-      <label
-        className="block my-2 text-sm font-bold text-gray-700"
-        htmlFor={id}
-      >
+      <label className="block my-2 text-sm font-bold text-white" htmlFor={id}>
         {label}
       </label>
       <input
-        className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+        className="w-full px-3 py-2 leading-tight text-black border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
         {...register}
         id={id}
         type={type}

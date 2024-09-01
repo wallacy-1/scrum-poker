@@ -108,7 +108,7 @@ function Room() {
         mainPlayerIsAdmin={mainPlayer?.role === PlayerRolesEnum.ADMIN}
       />
 
-      <div className="w-full">{mainPlayer?.canVote && <Deck />}</div>
+      <div className="w-full mt-20">{mainPlayer?.canVote && <Deck />}</div>
 
       <Modal isOpen={joinModal} title={"Enter the room."}>
         <form onSubmit={playerInfoForm.handleSubmit(handleJoinRoom)}>

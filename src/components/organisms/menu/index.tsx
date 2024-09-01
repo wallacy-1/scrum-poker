@@ -39,7 +39,7 @@ const Menu: React.FC<MenuPropsInterface> = ({ title, children }) => {
       />
       <div
         hidden={!open}
-        className="absolute z-20 mt-2 rounded-md w-[9.2rem] bg-zinc-800 -left-28"
+        className="absolute z-20 mt-2 rounded-md w-[9.2rem] bg-gray-300 -left-28"
       >
         <ul className="overflow-hidden border divide-y divide-gray-500 rounded-md border-zinc-950">
           {children}
