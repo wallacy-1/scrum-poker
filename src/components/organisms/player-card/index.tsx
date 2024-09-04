@@ -15,11 +15,11 @@ import {
 import { useCallback, useMemo, useState } from "react";
 import { ChangeChoiceModal, PlayerConfigurationMenu } from "../../molecules";
 
-const PlayerCard = ({
+const PlayerCard: React.FC<PlayerCardPropsInterface> = ({
   player,
   roomStatus,
   mainPlayerIsAdmin,
-}: PlayerCardPropsInterface) => {
+}) => {
   const [adminAlterChoiceModal, setAdminAlterChoiceModal] = useState(false);
   const { name, choice, id, role, canVote } = player;
   const cardValues = [0, 1, 2, 3, 5, 8, 13, 20, 100];
@@ -53,7 +53,7 @@ const PlayerCard = ({
         )}
 
         <div className="flex text-center">
-          <p className="w-9/12" title={name}>
+          <p className="w-9/12 text-white" title={name}>
             {getShortString(name, 9)}
           </p>
           {(mainPlayerIsAdmin || id === socket.id) && (
@@ -87,10 +87,9 @@ const PlayerCard = ({
               size="4x"
             />
           ) : (
-            roomStatus === RoomStatusEnum.REVEAL &&
-            choice !== false && (
+            roomStatus === RoomStatusEnum.REVEAL && (
               <>
-                <p className="pb-4 text-4xl">{choice}</p>
+                <p className="pb-4 text-4xl">{choice ? choice : "N/A"}</p>
 
                 {mainPlayerIsAdmin && (
                   <FontAwesomeIcon

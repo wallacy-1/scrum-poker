@@ -52,18 +52,29 @@ const PlayerConfigurationMenu = ({
       {showAdminActions && (
         <>
           <MenuItem onClick={handleToggleVotingStatus}>
-            <FontAwesomeIcon icon={canVote ? faLock : faLockOpen} size="sm" />
-            <p>{canVote ? "Prevent voting" : "Allow voting"}</p>
+            <FontAwesomeIcon
+              icon={canVote ? faLock : faLockOpen}
+              size="sm"
+              color="#696969"
+            />
+            <p className="text-right">
+              {canVote ? "Prevent voting" : "Allow voting"}
+            </p>
           </MenuItem>
 
           {!isAdmin && (
             <>
               <MenuItem onClick={handleRemovePlayer}>
-                <FontAwesomeIcon icon={faDoorOpen} size="sm" />
+                <FontAwesomeIcon icon={faDoorOpen} size="sm" color="#696969" />
                 <p>Remove player</p>
               </MenuItem>
               <MenuItem onClick={handleTransferAdmin}>
-                <FontAwesomeIcon icon={faUpLong} size="sm" />
+                <FontAwesomeIcon
+                  className="pr-1 pl-0.5"
+                  icon={faUpLong}
+                  size="sm"
+                  color="#696969"
+                />
                 <p>Pass admin</p>
               </MenuItem>
             </>
@@ -72,7 +83,7 @@ const PlayerConfigurationMenu = ({
       )}
 
       <MenuItem onClick={() => setAlterNameModal(true)}>
-        <FontAwesomeIcon icon={faPenToSquare} size="sm" />
+        <FontAwesomeIcon icon={faPenToSquare} size="sm" color="#696969" />
         <p>Change name</p>
       </MenuItem>
 
