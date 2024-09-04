@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import socket from "../../services/scrum-poker/webSocketService";
 import { getMainPlayer } from "../../utils";
-import { Modal } from "../../components/organisms";
+import { Modal, Navbar } from "../../components/organisms";
 import {
   PlayerDataInterface,
   PlayerRolesEnum,
@@ -72,11 +72,6 @@ function Room() {
     };
   }, []);
 
-  const handleRevealCards = () => {
-    console.log("handleRevealCards");
-    socket.emit("revealCards", roomId);
-  };
-
   const handleJoinRoom = (data: { playerName?: string }) => {
     const nameNoWhiteSpace = data.playerName
       ? data.playerName.trim()
@@ -88,19 +83,9 @@ function Room() {
     setJoinModal(false);
   };
 
-  const handleRestartVoting = () => {
-    console.log("handleRestartVoting");
-    socket.emit("reset", roomId);
-  };
-
   return (
-    <div className="flex flex-col justify-between h-screen bg-slate-50">
-      <div className="flex w-full">
-        <p>Room administrator actions:</p>
-        <Button onClick={handleRevealCards}>Reveal cards</Button>
-        <Button onClick={handleRestartVoting}>Restart round</Button>
-        <Button onClick={handleRevealCards}>End room</Button>
-      </div>
+    <div className="flex flex-col justify-between h-screen bg-gray-700">
+      <Navbar roomId={roomData?.id} />
 
       <Board
         players={roomData?.players}
