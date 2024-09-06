@@ -10,6 +10,7 @@ import {
   PlayerDataInterface,
   PlayerRolesEnum,
   RoomDataInterface,
+  RoomStatusEnum,
 } from "./interfaces";
 
 function Room() {
@@ -93,7 +94,11 @@ function Room() {
         mainPlayerIsAdmin={mainPlayer?.role === PlayerRolesEnum.ADMIN}
       />
 
-      <div className="w-full mt-20">{mainPlayer?.canVote && <Deck />}</div>
+      <div className="w-full mt-20">
+        {mainPlayer?.canVote && roomData?.status === RoomStatusEnum.VOTING && (
+          <Deck />
+        )}
+      </div>
 
       <Modal isOpen={joinModal} title={"Enter the room."}>
         <form onSubmit={playerInfoForm.handleSubmit(handleJoinRoom)}>
