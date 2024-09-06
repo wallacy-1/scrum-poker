@@ -22,7 +22,7 @@ const Navbar: React.FC<NavbarPropsInterface> = ({ roomId }) => {
         <a href="/#home" target="_blank" className="text-sm">
           How to Play
         </a>
-        <a href="/about" target="_blank" className="text-sm">
+        <a href="/#about" target="_blank" className="text-sm">
           About
         </a>
       </div>
