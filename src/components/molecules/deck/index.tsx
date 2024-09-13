@@ -1,10 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { VotingCard } from "..";
 import socket from "../../../services/scrum-poker/webSocketService";
 
 const Deck = () => {
   const cardValues = [0, 1, 2, 3, 5, 8, 13, 20, 100];
   const [selectedValue, setSelectedValue] = useState<number | null>(null);
+
+  useEffect(() => {
+    socket.on("choiceReset", () => {
+      setSelectedValue(null);
+    });
+  }, []);
 
   const handleCardSelect = (value: number) => {
     setSelectedValue(value);

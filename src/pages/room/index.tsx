@@ -51,10 +51,6 @@ function Room() {
       });
     });
 
-    socket.on("newRound", () => {
-      console.log(`Admin reset all points`);
-    });
-
     socket.on("error", (message: string) => {
       console.log("socket received - ERROR: " + message);
       alert(message);
