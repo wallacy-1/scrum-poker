@@ -1,0 +1,55 @@
+{
+  "common": {
+    "yes": "Sim",
+    "no": "Não",
+    "cancel": "Cancelar",
+    "submit": "Enviar",
+    "create": "Criar",
+    "save": "Salvar",
+    "loading": "Carregando..."
+  },
+  "form_common": {
+    "required_player_name_error": "O nome do jogador é obrigatório."
+  },
+  "screens": {
+    "home": {
+      "new": "Nova sala"
+    },
+    "room": {
+      "join": "Entrar na sala",
+      "player_name_input": "Nome do jogador"
+    }
+  },
+  "molecules": {
+    "change_name_modal": {
+      "player_name_input": "Novo nome:",
+      "title": "Alterar nome do jogador: {{oldName}}."
+    },
+    "change_choice_modal": {
+      "title": "Alterar escolha do jogador: {{name}}."
+    },
+    "player_configuration_menu": {
+      "allow_voting": "Permitir voto",
+      "prevent_voting": "Impedir voto",
+      "remove_player": "Remover",
+      "pass_admin": "Passar admin",
+      "change_name": "Alterar nome"
+    }
+  },
+  "organisms": {
+    "navbar": {
+      "home": "Início",
+      "how_to_play": "Como jogar",
+      "about": "Sobre",
+      "reveal_cards": "Revelar cartas",
+      "restart_voting": "Reiniciar votação"
+    },
+    "player_card": {
+      "admin_icon_title": "Administrador da sala.",
+      "admin_change_choice_icon_title": "Alterar escolha do jogador.",
+      "admin_forced_choice_title": "O admin alterou a escolha deste jogador de {{previousChoice}} para {{choice}}.",
+      "observer_icon_title": "Este jogador foi designado como observador e não pode votar.",
+      "no_choice_text": "N/D"
+    }
+  }
+}

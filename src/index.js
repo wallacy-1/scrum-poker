@@ -1,10 +1,12 @@
 import React from "react";
+import "/node_modules/flag-icons/css/flag-icons.min.css";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 import Home from "./pages/home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Room from "./pages/room";
+import "./i18n";
 
 const router = createBrowserRouter([
   {

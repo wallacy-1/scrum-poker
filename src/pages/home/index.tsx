@@ -1,8 +1,12 @@
+import { useTranslation } from "react-i18next";
 import { Button } from "../../components/atoms";
 import socket from "../../services/scrum-poker/webSocketService";
 import { useEffect } from "react";
+import { Navbar } from "../../components/organisms";
 
 function Home() {
+  const { t } = useTranslation();
+
   useEffect(() => {
     socket.connect();
 
@@ -26,14 +30,17 @@ function Home() {
   };
 
   return (
-    <div className="flex flex-col items-center bg-slate-50">
-      <div className="flex w-full h-screen justify-evenly">
-        <div>
-          <p>New room:</p>
-          <Button onClick={handleCreateRoom}>Create room</Button>
+    <>
+      <Navbar />
+      <div className="flex flex-col items-center bg-gray-700">
+        <div className="flex w-full h-screen justify-evenly">
+          <div>
+            <h1>{t("screens.home.new")}:</h1>
+            <Button onClick={handleCreateRoom}>{t("common.create")}</Button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

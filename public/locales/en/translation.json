@@ -1,0 +1,55 @@
+{
+  "common": {
+    "yes": "Yes",
+    "no": "No",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "create": "Create",
+    "save": "Save",
+    "loading": "Loading..."
+  },
+  "form_common": {
+    "required_player_name_error": "The player's name is mandatory."
+  },
+  "screens": {
+    "home": {
+      "new": "New room"
+    },
+    "room": {
+      "join": "Join Room",
+      "player_name_input": "Player name"
+    }
+  },
+  "molecules": {
+    "change_name_modal": {
+      "player_name_input": "New name:",
+      "title": "Change player: {{oldName}} name."
+    },
+    "change_choice_modal": {
+      "title": "Change player: {{name}} choice."
+    },
+    "player_configuration_menu": {
+      "allow_voting": "Allow voting",
+      "prevent_voting": "Prevent voting",
+      "remove_player": "Remove player",
+      "pass_admin": "Pass admin",
+      "change_name": "Change name"
+    }
+  },
+  "organisms": {
+    "navbar": {
+      "home": "Home",
+      "how_to_play": "How to Play",
+      "about": "About",
+      "reveal_cards": "Reveal cards",
+      "restart_voting": "Restart voting"
+    },
+    "player_card": {
+      "admin_icon_title": "Room Administrator.",
+      "admin_change_choice_icon_title": "Change player choice.",
+      "admin_forced_choice_title": "Admin changed this player's choice from {{previousChoice}} to {{choice}}.",
+      "observer_icon_title": "This player is designated as an observer and is not permitted to vote.",
+      "no_choice_text": "N/A"
+    }
+  }
+}

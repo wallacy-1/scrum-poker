@@ -1,8 +1,14 @@
 import { Button } from "../../atoms";
 import socket from "../../../services/scrum-poker/webSocketService";
 import { NavbarPropsInterface } from "./interfaces";
+import { useTranslation } from "react-i18next";
+import { LanguageSelector } from "../../molecules";
 
 const Navbar: React.FC<NavbarPropsInterface> = ({ roomId }) => {
+  const { t } = useTranslation("", {
+    keyPrefix: "organisms.navbar",
+  });
+
   const handleRevealCards = () => {
     console.log("handleRevealCards");
     socket.emit("revealCards", roomId);
@@ -17,20 +23,22 @@ const Navbar: React.FC<NavbarPropsInterface> = ({ roomId }) => {
     <nav className="flex items-center justify-between p-4 text-white bg-gray-800">
       <div className="flex items-center space-x-4">
         <a href="/" className="text-2xl font-bold">
-          MyApp
+          {t("home")}
         </a>
         <a href="/#home" target="_blank" className="text-sm">
-          How to Play
+          {t("how_to_play")}
         </a>
         <a href="/#about" target="_blank" className="text-sm">
-          About
+          {t("about")}
         </a>
       </div>
       <div className="flex space-x-4">
-        <Button onClick={handleRevealCards}>Reveal cards</Button>
-        <Button onClick={handleRestartVoting}>Restart voting</Button>
+        <Button onClick={handleRevealCards}>{t("reveal_cards")}</Button>
+        <Button onClick={handleRestartVoting}>{t("restart_voting")}</Button>
       </div>
-      <div className="flex space-x-4"></div>
+      <div className="flex space-x-4">
+        <LanguageSelector />
+      </div>
     </nav>
   );
 };

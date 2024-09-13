@@ -14,12 +14,16 @@ import {
 } from "../../../pages/room/interfaces";
 import { useCallback, useMemo, useState } from "react";
 import { ChangeChoiceModal, PlayerConfigurationMenu } from "../../molecules";
+import { useTranslation } from "react-i18next";
 
 const PlayerCard: React.FC<PlayerCardPropsInterface> = ({
   player,
   roomStatus,
   mainPlayerIsAdmin,
 }) => {
+  const { t } = useTranslation("", {
+    keyPrefix: "organisms.player_card",
+  });
   const [adminAlterChoiceModal, setAdminAlterChoiceModal] = useState(false);
   const { name, choice, id, role, canVote } = player;
   const cardValues = [0, 1, 2, 3, 5, 8, 13, 20, 100];
@@ -45,7 +49,7 @@ const PlayerCard: React.FC<PlayerCardPropsInterface> = ({
       <div className="flex flex-col w-full">
         {isAdmin && (
           <FontAwesomeIcon
-            title="Room Administrator."
+            title={t("admin_icon_title")}
             icon={faCrown}
             size="xl"
             color="#FFDF00"
@@ -71,7 +75,10 @@ const PlayerCard: React.FC<PlayerCardPropsInterface> = ({
         <div className="relative flex flex-col items-center justify-center w-full h-full">
           {player.previousChoiceBeforeAdminChange && (
             <FontAwesomeIcon
-              title={`Admin changed this player's choice from ${player.previousChoiceBeforeAdminChange} to ${choice}.`}
+              title={t("admin_forced_choice_title", {
+                previousChoice: player.previousChoiceBeforeAdminChange,
+                choice: player.choice,
+              })}
               className="absolute top-6"
               icon={faCrown}
               size="xl"
@@ -80,7 +87,7 @@ const PlayerCard: React.FC<PlayerCardPropsInterface> = ({
           )}
           {!canVote ? (
             <FontAwesomeIcon
-              title="This player is designated as an observer and is not permitted to vote."
+              title={t("observer_icon_title")}
               className="mb-3 ml-1"
               icon={faEye}
               color="#224ba5"
@@ -89,13 +96,15 @@ const PlayerCard: React.FC<PlayerCardPropsInterface> = ({
           ) : (
             roomStatus === RoomStatusEnum.REVEAL && (
               <>
-                <p className="pb-4 text-4xl">{choice ? choice : "N/A"}</p>
+                <p className="pb-4 text-4xl">
+                  {choice ? choice : t("no_choice_text")}
+                </p>
 
                 {mainPlayerIsAdmin && (
                   <FontAwesomeIcon
                     onClick={() => setAdminAlterChoiceModal(true)}
                     className="absolute cursor-pointer top-6 right-1"
-                    title="Change player choice."
+                    title={t("admin_change_choice_icon_title")}
                     icon={faPenToSquare}
                     color="#696969"
                     size="lg"

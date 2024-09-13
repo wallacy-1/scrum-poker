@@ -12,8 +12,10 @@ import {
   RoomDataInterface,
   RoomStatusEnum,
 } from "./interfaces";
+import { useTranslation } from "react-i18next";
 
 function Room() {
+  const { t } = useTranslation();
   const [roomData, setRoomData] = useState<RoomDataInterface>();
 
   const mainPlayer: PlayerDataInterface | null = useMemo(() => {
@@ -96,19 +98,19 @@ function Room() {
         )}
       </div>
 
-      <Modal isOpen={joinModal} title={"Enter the room."}>
+      <Modal isOpen={joinModal} title={t("screens.room.join")}>
         <form onSubmit={playerInfoForm.handleSubmit(handleJoinRoom)}>
           <FormInput
             id="playerName"
             type="text"
-            label="Player name:"
+            label={t("screens.room.player_name_input")}
             register={playerInfoForm.register("playerName", {
-              required: "The player's name is mandatory.",
+              required: t("form_common.required_player_name_error"),
             })}
             error={playerInfoForm.formState.errors.playerName}
           />
 
-          <Button type="submit">Enter room</Button>
+          <Button type="submit">{t("screens.room.join")}</Button>
         </form>
       </Modal>
     </div>

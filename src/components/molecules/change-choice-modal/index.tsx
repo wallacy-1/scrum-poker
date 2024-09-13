@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import { Button } from "../../atoms";
 import { Modal } from "../../organisms";
 import { ChangeChoiceModalPropsInterface } from "./interfaces";
+import { useTranslation } from "react-i18next";
 
 const ChangeChoiceModal = ({
   name,
@@ -9,6 +10,7 @@ const ChangeChoiceModal = ({
   onSuccessFunction,
   onCancelFunction,
 }: ChangeChoiceModalPropsInterface) => {
+  const { t } = useTranslation();
   const [choice, setChoice] = useState<number | string | null>(null);
 
   const handleChangeChoice = useCallback(() => {
@@ -25,12 +27,13 @@ const ChangeChoiceModal = ({
   return (
     <Modal
       isOpen={true}
-      title={`Change player: ${name} choice.`}
+      title={t("molecules.change_choice_modal.title", { name })}
       backgroundOpacity
     >
       <div className="flex">
-        {cardValues.map((value: number | string) => (
+        {cardValues.map((value: number | string, index) => (
           <div
+            key={index}
             onClick={() => setChoice(value)}
             className={`${
               choice === value ? "bg-green-400" : "bg-blue-400"
@@ -42,10 +45,10 @@ const ChangeChoiceModal = ({
       </div>
 
       <div className="flex justify-between mt-3 border-t">
-        <Button onClick={() => handleCancel()}>Cancel</Button>
         <Button onClick={() => handleChangeChoice()} disabled={choice === null}>
-          Save
+          {t("common.save")}
         </Button>
+        <Button onClick={() => handleCancel()}>{t("common.cancel")}</Button>
       </div>
     </Modal>
   );

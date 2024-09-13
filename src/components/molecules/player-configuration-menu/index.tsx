@@ -12,6 +12,7 @@ import { Menu } from "../../organisms";
 import { PlayerConfigurationMenuPropsInterface } from "./interfaces";
 import { useCallback, useState } from "react";
 import ChangeNameModal from "../change-name-modal";
+import { useTranslation } from "react-i18next";
 
 const PlayerConfigurationMenu = ({
   id,
@@ -20,6 +21,9 @@ const PlayerConfigurationMenu = ({
   isAdmin,
   showAdminActions,
 }: PlayerConfigurationMenuPropsInterface) => {
+  const { t } = useTranslation("", {
+    keyPrefix: "molecules.player_configuration_menu",
+  });
   const [alterNameModal, setAlterNameModal] = useState(false);
 
   const handleRemovePlayer = useCallback(() => {
@@ -58,7 +62,7 @@ const PlayerConfigurationMenu = ({
               color="#696969"
             />
             <p className="text-right">
-              {canVote ? "Prevent voting" : "Allow voting"}
+              {t(`${canVote ? "prevent" : "allow"}_voting`)}
             </p>
           </MenuItem>
 
@@ -66,7 +70,7 @@ const PlayerConfigurationMenu = ({
             <>
               <MenuItem onClick={handleRemovePlayer}>
                 <FontAwesomeIcon icon={faDoorOpen} size="sm" color="#696969" />
-                <p>Remove player</p>
+                <p>{t("remove_player")}</p>
               </MenuItem>
               <MenuItem onClick={handleTransferAdmin}>
                 <FontAwesomeIcon
@@ -75,7 +79,7 @@ const PlayerConfigurationMenu = ({
                   size="sm"
                   color="#696969"
                 />
-                <p>Pass admin</p>
+                <p>{t("pass_admin")}</p>
               </MenuItem>
             </>
           )}
@@ -84,7 +88,7 @@ const PlayerConfigurationMenu = ({
 
       <MenuItem onClick={() => setAlterNameModal(true)}>
         <FontAwesomeIcon icon={faPenToSquare} size="sm" color="#696969" />
-        <p>Change name</p>
+        <p>{t("change_name")}</p>
       </MenuItem>
 
       {alterNameModal && (
