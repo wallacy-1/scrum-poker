@@ -13,7 +13,7 @@
   },
   "screens": {
     "home": {
-      "new": "New room"
+      "room": "Room"
     },
     "room": {
       "join": "Join Room",
