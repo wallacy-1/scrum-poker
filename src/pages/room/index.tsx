@@ -83,7 +83,7 @@ function Room() {
   };
 
   return (
-    <div className="flex flex-col justify-between h-screen bg-gray-700">
+    <main className="flex flex-col justify-between h-screen bg-gray-700">
       <Navbar roomId={roomData?.id} />
 
       <Board
@@ -113,7 +113,7 @@ function Room() {
           <Button type="submit">{t("screens.room.join")}</Button>
         </form>
       </Modal>
-    </div>
+    </main>
   );
 }
 
