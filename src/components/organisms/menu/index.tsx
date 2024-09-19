@@ -4,28 +4,24 @@ import React, { useEffect, useRef, useState } from "react";
 import { MenuPropsInterface } from "./interfaces";
 
 const Menu: React.FC<MenuPropsInterface> = ({ title, children }) => {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const refDiv = useRef<HTMLDivElement>(null);
 
-  const openMenu = () => {
-    setOpen(!open);
-  };
-
-  const outsideClickMenu = (event: any) => {
-    if (refDiv.current && !refDiv.current.contains(event.target)) {
-      setOpen(false);
-    }
-  };
-
   useEffect(() => {
-    if (open) {
+    const outsideClickMenu = (event: any) => {
+      if (refDiv.current && !refDiv.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
       document.addEventListener("mousedown", outsideClickMenu);
     }
 
     return () => {
       document.removeEventListener("mousedown", outsideClickMenu);
     };
-  }, [open]);
+  }, [isOpen]);
 
   return (
     <div ref={refDiv} className="relative inline-block">
@@ -35,16 +31,15 @@ const Menu: React.FC<MenuPropsInterface> = ({ title, children }) => {
         size={"lg"}
         color="#696969"
         className="ml-2 cursor-pointer"
-        onClick={openMenu}
+        onClick={() => setIsOpen(!isOpen)}
       />
-      <div
-        hidden={!open}
-        className="absolute z-20 mt-2 rounded-md w-[9.2rem] bg-gray-800 -left-28"
-      >
-        <ul className="overflow-hidden border divide-y rounded-md divide-zinc-950 border-zinc-950">
-          {children}
-        </ul>
-      </div>
+      {isOpen && (
+        <div className="absolute z-20 mt-2 rounded-md w-[9.2rem] bg-gray-800 -left-28">
+          <ul className="overflow-hidden border divide-y rounded-md divide-zinc-950 border-zinc-950">
+            {children}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
