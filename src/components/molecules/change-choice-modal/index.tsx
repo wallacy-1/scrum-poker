@@ -1,33 +1,31 @@
 import { useCallback, useState } from "react";
 import { Button } from "../../atoms";
 import { Modal } from "../../organisms";
-import { ChangeChoiceModalPropsInterface } from "./interfaces";
 import { useTranslation } from "react-i18next";
+import { useChangeChoiceModal } from "../../../contexts";
+import socket from "../../../services/scrum-poker/webSocketService";
 
-const ChangeChoiceModal = ({
-  name,
-  cardValues,
-  onSuccessFunction,
-  onCancelFunction,
-}: ChangeChoiceModalPropsInterface) => {
+const ChangeChoiceModal = () => {
   const { t } = useTranslation();
   const [choice, setChoice] = useState<number | string | null>(null);
+  const { playerName, cardValues, targetId, closeChoiceModal } =
+    useChangeChoiceModal();
 
   const handleChangeChoice = useCallback(() => {
     if (!choice) return;
 
-    onSuccessFunction(choice);
-  }, [choice, onSuccessFunction]);
+    socket.emit("adminChangePlayerChoice", { targetId, choice });
+    closeChoiceModal();
+  }, [choice, closeChoiceModal, targetId]);
 
   const handleCancel = useCallback(() => {
     setChoice(null);
-    onCancelFunction();
-  }, [onCancelFunction]);
+    closeChoiceModal();
+  }, [closeChoiceModal]);
 
   return (
     <Modal
-      isOpen={true}
-      title={t("molecules.change_choice_modal.title", { name })}
+      title={t("molecules.change_choice_modal.title", { name: playerName })}
       backgroundOpacity
     >
       <div className="flex">
@@ -45,10 +43,10 @@ const ChangeChoiceModal = ({
       </div>
 
       <div className="flex justify-between mt-3 border-t">
+        <Button onClick={() => handleCancel()}>{t("common.cancel")}</Button>
         <Button onClick={() => handleChangeChoice()} disabled={choice === null}>
           {t("common.save")}
         </Button>
-        <Button onClick={() => handleCancel()}>{t("common.cancel")}</Button>
       </div>
     </Modal>
   );

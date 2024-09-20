@@ -98,7 +98,8 @@ function Room() {
         )}
       </div>
 
-      <Modal isOpen={joinModal} title={t("screens.room.join")}>
+      {joinModal && (
+        <Modal title={t("screens.room.join")}>
         <form onSubmit={playerInfoForm.handleSubmit(handleJoinRoom)}>
           <FormInput
             id="playerName"
@@ -113,6 +114,7 @@ function Room() {
           <Button type="submit">{t("screens.room.join")}</Button>
         </form>
       </Modal>
+      )}
     </main>
   );
 }

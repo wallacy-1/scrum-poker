@@ -6,6 +6,7 @@ import "./index.css";
 import Home from "./pages/home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Room from "./pages/room";
+import { ChangeNameModalProvider, ChangeChoiceModalProvider } from "./contexts";
 import "./i18n";
 
 const router = createBrowserRouter([
@@ -21,7 +22,11 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
-  <RouterProvider router={router} />
+  <ChangeNameModalProvider>
+    <ChangeChoiceModalProvider>
+      <RouterProvider router={router} />
+    </ChangeChoiceModalProvider>
+  </ChangeNameModalProvider>
   // </React.StrictMode>
 );
 

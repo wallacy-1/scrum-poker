@@ -12,9 +12,10 @@ import {
   PlayerRolesEnum,
   RoomStatusEnum,
 } from "../../../pages/room/interfaces";
-import { useCallback, useMemo, useState } from "react";
-import { ChangeChoiceModal, PlayerConfigurationMenu } from "../../molecules";
+import { useMemo } from "react";
+import { PlayerConfigurationMenu } from "../../molecules";
 import { useTranslation } from "react-i18next";
+import { useChangeChoiceModal } from "../../../contexts";
 
 const PlayerCard: React.FC<PlayerCardPropsInterface> = ({
   player,
@@ -24,9 +25,9 @@ const PlayerCard: React.FC<PlayerCardPropsInterface> = ({
   const { t } = useTranslation("", {
     keyPrefix: "organisms.player_card",
   });
-  const [adminAlterChoiceModal, setAdminAlterChoiceModal] = useState(false);
+  const { openChoiceModal } = useChangeChoiceModal();
   const { name, choice, id, role, canVote } = player;
-  const cardValues = [0, 1, 2, 3, 5, 8, 13, 20, 100];
+  const cardValues = ["0", "1", "2", "3", "5", "8", "13", "20", "100"];
 
   const cardColor = useMemo(
     () => (choice === false ? "bg-red-400" : "bg-green-400"),
@@ -35,14 +36,6 @@ const PlayerCard: React.FC<PlayerCardPropsInterface> = ({
   const isAdmin = useMemo(() => {
     return role === PlayerRolesEnum.ADMIN;
   }, [role]);
-
-  const handleAdminChangePlayerChoice = useCallback(
-    (choice: number | string) => {
-      socket.emit("adminChangePlayerChoice", { targetId: id, choice });
-      setAdminAlterChoiceModal(false);
-    },
-    [id]
-  );
 
   return (
     <div className="flex flex-col justify-end px-1 w-34">
@@ -102,7 +95,7 @@ const PlayerCard: React.FC<PlayerCardPropsInterface> = ({
 
                 {mainPlayerIsAdmin && (
                   <FontAwesomeIcon
-                    onClick={() => setAdminAlterChoiceModal(true)}
+                    onClick={() => openChoiceModal(name, cardValues, id)}
                     className="absolute cursor-pointer top-6 right-1"
                     title={t("admin_change_choice_icon_title")}
                     icon={faPenToSquare}
@@ -114,15 +107,6 @@ const PlayerCard: React.FC<PlayerCardPropsInterface> = ({
             )
           )}
         </div>
-
-        {adminAlterChoiceModal && (
-          <ChangeChoiceModal
-            name={name}
-            cardValues={cardValues}
-            onSuccessFunction={handleAdminChangePlayerChoice}
-            onCancelFunction={() => setAdminAlterChoiceModal(false)}
-          />
-        )}
       </PokerCard>
     </div>
   );

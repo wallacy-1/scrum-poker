@@ -10,9 +10,9 @@ import socket from "../../../services/scrum-poker/webSocketService";
 import { MenuItem } from "../../atoms";
 import { Menu } from "../../organisms";
 import { PlayerConfigurationMenuPropsInterface } from "./interfaces";
-import { useCallback, useState } from "react";
-import ChangeNameModal from "../change-name-modal";
+import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
+import { useChangeNameModal } from "../../../contexts";
 
 const PlayerConfigurationMenu = ({
   id,
@@ -24,7 +24,7 @@ const PlayerConfigurationMenu = ({
   const { t } = useTranslation("", {
     keyPrefix: "molecules.player_configuration_menu",
   });
-  const [alterNameModal, setAlterNameModal] = useState(false);
+  const { openNameModal } = useChangeNameModal();
 
   const handleRemovePlayer = useCallback(() => {
     console.log(`handleRemovePlayer - called with targetId: ${id}`);
@@ -42,14 +42,6 @@ const PlayerConfigurationMenu = ({
     console.log("handleTransferAdmin");
     socket.emit("transferAdmin", id);
   }, [id]);
-
-  const handleChangeName = useCallback(
-    (newName: string) => {
-      socket.emit("changeName", { targetId: id, newName });
-      setAlterNameModal(false);
-    },
-    [id]
-  );
 
   return (
     <Menu title="Player">
@@ -86,18 +78,10 @@ const PlayerConfigurationMenu = ({
         </>
       )}
 
-      <MenuItem onClick={() => setAlterNameModal(true)}>
+      <MenuItem onClick={() => openNameModal(name, id)}>
         <FontAwesomeIcon icon={faPenToSquare} size="sm" color="#696969" />
         <p>{t("change_name")}</p>
       </MenuItem>
-
-      {alterNameModal && (
-        <ChangeNameModal
-          oldName={name}
-          onSuccessFunction={handleChangeName}
-          onCancelFunction={() => setAlterNameModal(false)}
-        />
-      )}
     </Menu>
   );
 };
