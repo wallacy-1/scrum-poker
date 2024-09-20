@@ -2,6 +2,8 @@
 
 Scrum Poker é utilizado para facilitar a definição de pontos/peso de histórias dentro de um time Scrum.
 
+production: <https://scrum-poker-three.vercel.app/>
+
 _Ler em outros idiomas: [Inglês](README.md)_
 
 ## Índice
