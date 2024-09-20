@@ -26,8 +26,7 @@ O Scrum Poker é uma ferramenta de planejamento utilizada por equipes de desenvo
 - Votação em cartas de planejamento por cada jogador
 - Administração de permissões para o moderador da sala
 - Suporte a múltiplos jogadores em tempo real (via WebSocket)
-- Suporte a múltiplos idiomas (i18n - Portugues e ingles)
-- Modais para interação com o usuário (mudança de nome e de escolha)
+- Suporte aos idiomas Portugues-BR e ingles (i18n)
 
 ## Instalação
 
@@ -73,7 +72,7 @@ npm run start:dev
 
 ### Criação de uma sala
 
-1. Entre em uma video chamada com a equipe ou esteja em uma sala.
+1. Entre em uma chamada de video com a sua equipe (opcional).
 2. Na página principal, Crie uma sala.
 3. Compartilhe o link da sala com os jogadores.
 4. Escolha uma carta e espere os outros jogadores votarem.
