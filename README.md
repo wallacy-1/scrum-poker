@@ -1,105 +1,106 @@
 # Scrum Poker
 
-Scrum Poker é utilizado para facilitar a definição de pontos/peso de histórias dentro de um time Scrum.
+Scrum Poker is a tool used to facilitate story point estimation within a Scrum team.
 
-## Índice
+_Read this in other languages: [Portugues-BR](README.pt.md)_
+
+## Table of Contents
 
 - [Scrum Poker](#scrum-poker)
-  - [Índice](#índice)
-  - [Sobre](#sobre)
-  - [Funcionalidades](#funcionalidades)
-  - [Instalação](#instalação)
-  - [Uso](#uso)
-    - [Criação de uma sala](#criação-de-uma-sala)
-    - [Visual da sala](#visual-da-sala)
-    - [Permissões do administrador](#permissões-do-administrador)
-  - [Tecnologias Utilizadas](#tecnologias-utilizadas)
-  - [Contribuição](#contribuição)
+  - [Table of Contents](#table-of-contents)
+  - [About](#about)
+  - [Features](#features)
+  - [Installation](#installation)
+  - [Usage](#usage)
+    - [Creating a room](#creating-a-room)
+    - [Room view](#room-view)
+    - [Room view image](#room-view-image)
+    - [Admin permissions](#admin-permissions)
+  - [Technologies Used](#technologies-used)
+  - [Contributing](#contributing)
 
-## Sobre
+## About
 
-O Scrum Poker é uma ferramenta de planejamento utilizada por equipes de desenvolvimento ágil para estimar o esforço relativo de histórias de usuários em uma sprint. A aplicação permite que os jogadores participem de uma sessão de poker e escolham cartas para estimar o esforço de forma colaborativa.
+Scrum Poker is a planning tool used by agile development teams to estimate the relative effort of user stories during a sprint. The app allows players to participate in a poker session and choose cards to collaboratively estimate effort.
 
-## Funcionalidades
+## Features
 
-- Criação de salas para Scrum Poker
-- Votação em cartas de planejamento por cada jogador
-- Administração de permissões para o moderador da sala
-- Suporte a múltiplos jogadores em tempo real (via WebSocket)
-- Suporte aos idiomas Portugues-BR e ingles (i18n)
+- Room creation for Scrum Poker sessions
+- Voting on planning cards by each player
+- Admin control for room moderation
+- Support for multiple players in real-time (via WebSocket)
+- Multi-language support (i18n - Portuguese and English)
+- Modals for user interactions (changing name and choice)
 
-## Instalação
+## Installation
 
-1. Clone o repositório do Frontend:
+1. Clone the Frontend repository:
 
 ```bash
 git clone https://github.com/wallacy-1/scrum-poker.git
 cd scrum-poker
 ```
 
-2. Instale as dependências do Frontend:
+2. Install the Frontend dependencies:
 
 ```bash
 npm install
-# ou
-yarn install
 ```
 
-3. Inicie o projeto do frontend:
+3. Start the Frontend project:
 
 ```bash
 npm start
 ```
 
-4. Clone o repositório do Backend (Socket do Scrum Poker):
+4. Clone the Backend repository (Socket for Scrum Poker):
 
 ```bash
 git clone https://github.com/wallacy-1/jogos-sockets.git
 cd jogos-sockets
 ```
 
-5. Instale as dependências e inicie o Backend:
+5. Install the dependencies and start the Backend:
 
 ```bash
 npm install
-# ou
-yarn install
 
 npm run start:dev
 ```
 
-## Uso
+## Usage
 
-### Criação de uma sala
+### Creating a room
 
-1. Entre em uma chamada de video com a sua equipe (opcional).
-2. Na página principal, Crie uma sala.
-3. Compartilhe o link da sala com os jogadores.
-4. Escolha uma carta e espere os outros jogadores votarem.
-5. Mostre as cartas e discuta com a sua equipe.
-6. Use a média como o ponto/peso da história.
+1. Join a video call with your team or be in a room.
+2. On the main page, create a room.
+3. Share the room link with the players.
+4. Choose a card and wait for other players to vote.
+5. Reveal the cards and discuss with your team.
+6. Take the average and use it as the story point/weight.
 
-### Visual da sala
+### Room view
 
-![Imagem da sala](public/images/room_view.png)
+### Room view image
 
-### Permissões do administrador
+![Room image](public/images/room_view.png)
 
-- Alterar a carta dos jogadores
-- Mudar o nome dos jogadores
-- Remover jogador da sala
-- Reiniciar votos
-- Revelar cartas
-- Impedir voto de algum jogador
+### Admin permissions
 
-## Tecnologias Utilizadas
+- Change players' cards
+- Change players' names
+- Remove players from the room
+- Reset votes
+- Disable voting for specific players
 
-- React: Biblioteca para criação de interfaces.
-- React Router: Gerenciamento de rotas no projeto.
-- Tailwind CSS: Framework CSS para estilização.
-- Socket IO: Comunicação em tempo real entre os jogadores.
-- i18n: Suporte para múltiplos idiomas.
+## Technologies Used
 
-## Contribuição
+- React: A library for building user interfaces.
+- React Router: Route management for the project.
+- Tailwind CSS: A utility-first CSS framework for styling.
+- Socket IO: Real-time communication between players.
+- i18n: Multi-language support for the application.
 
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests.
+## Contributing
+
+Contributions are welcome! Feel free to open issues or submit pull requests.
