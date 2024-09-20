@@ -7,6 +7,7 @@ import Home from "./pages/home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Room from "./pages/room";
 import { ChangeNameModalProvider, ChangeChoiceModalProvider } from "./contexts";
+import { Analytics } from "@vercel/analytics/react";
 import "./i18n";
 
 const router = createBrowserRouter([
@@ -25,6 +26,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <ChangeNameModalProvider>
     <ChangeChoiceModalProvider>
       <RouterProvider router={router} />
+      <Analytics />
     </ChangeChoiceModalProvider>
   </ChangeNameModalProvider>
   // </React.StrictMode>
