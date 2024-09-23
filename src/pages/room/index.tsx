@@ -98,7 +98,7 @@ function Room() {
 
   return (
     <main className="flex flex-col justify-between h-screen bg-gray-700">
-      <Navbar roomId={roomData?.id} />
+      <Navbar inviteModal />
 
       <Board
         players={roomData?.players}

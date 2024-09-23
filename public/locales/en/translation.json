@@ -3,6 +3,7 @@
     "yes": "Yes",
     "no": "No",
     "cancel": "Cancel",
+    "close": "Close",
     "submit": "Submit",
     "create": "Create",
     "save": "Save",
@@ -13,7 +14,7 @@
   },
   "screens": {
     "home": {
-      "room": "Room"
+      "new_room": "New room"
     },
     "room": {
       "vote_button_show": "Show cards",
@@ -24,6 +25,12 @@
       "player_name_input": "Player name"
     }
   },
+  "atoms": {
+    "clipboard_button": {
+      "copy_link": "Copy link",
+      "link_copied": "Link copied"
+    }
+  },
   "molecules": {
     "change_name_modal": {
       "player_name_input": "New name:",
@@ -32,6 +39,13 @@
     "change_choice_modal": {
       "title": "Change player: {{name}} choice."
     },
+    "invite_players_modal": {
+      "Invite_players": "Invite Players",
+      "how_to_invite": "To invite other players, send them the room link.",
+      "qr_code_description": "Scan the QR code for quick access on your mobile device!",
+      "qr_code_title": "QR Code with Room Link"
+    },
+
     "player_configuration_menu": {
       "allow_voting": "Allow voting",
       "prevent_voting": "Prevent voting",

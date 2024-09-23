@@ -42,7 +42,7 @@ const ChangeChoiceModal = () => {
         ))}
       </div>
 
-      <div className="flex justify-between mt-3 border-t">
+      <div className="flex justify-between pt-2 mt-5 border-t">
         <Button onClick={() => handleCancel()}>{t("common.cancel")}</Button>
         <Button onClick={() => handleChangeChoice()} disabled={choice === null}>
           {t("common.save")}

@@ -1,3 +1,3 @@
 export interface NavbarPropsInterface {
-  roomId?: string;
+  inviteModal?: boolean;
 }

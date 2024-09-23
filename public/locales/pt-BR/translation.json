@@ -3,6 +3,7 @@
     "yes": "Sim",
     "no": "Não",
     "cancel": "Cancelar",
+    "close": "Fechar",
     "submit": "Enviar",
     "create": "Criar",
     "save": "Salvar",
@@ -13,7 +14,7 @@
   },
   "screens": {
     "home": {
-      "room": "Sala"
+      "new_room": "Criar sala"
     },
     "room": {
       "vote_button_show": "Mostrar cartas",
@@ -24,6 +25,12 @@
       "player_name_input": "Nome do jogador"
     }
   },
+  "atoms": {
+    "clipboard_button": {
+      "copy_link": "Copiar link",
+      "link_copied": "Link copiado"
+    }
+  },
   "molecules": {
     "change_name_modal": {
       "player_name_input": "Novo nome:",
@@ -31,6 +38,12 @@
     },
     "change_choice_modal": {
       "title": "Alterar escolha do jogador: {{name}}."
+    },
+    "invite_players_modal": {
+      "Invite_players": "Convidar jogadores.",
+      "how_to_invite": "Para convidar outros jogadores envie o link da sala.",
+      "qr_code_description": "Escaneie o Qr code para rápido acesso pelo celular!",
+      "qr_code_title": "Qrcode com link da sala"
     },
     "player_configuration_menu": {
       "allow_voting": "Permitir voto",

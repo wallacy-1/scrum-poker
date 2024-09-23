@@ -33,21 +33,12 @@ function Home() {
 
   return (
     <>
-      <Navbar />
-      <main className="flex flex-col items-center">
-        <section className="flex items-center justify-between w-full min-h-[calc(100vh-80px)] px-10 bg-gray-700">
-          <div className="flex justify-center w-1/2 border-2 border-gray-900">
-            <img
-              src="/images/room_view.png"
-              alt="Room_image_view"
-              className="h-auto max-w-full"
-            />
-          </div>
-
-          <div className="flex flex-col items-center justify-center w-1/2 text-white">
-            <h1 className="mb-6 text-4xl">{t("screens.home.room")}</h1>
-            <Button onClick={handleCreateRoom}>{t("common.create")}</Button>
-          </div>
+      <main className="flex flex-col items-center w-full h-screen">
+        <Navbar />
+        <section className="flex items-center justify-center w-full h-full bg-gray-700">
+          <Button onClick={handleCreateRoom}>
+            {t("screens.home.new_room")}
+          </Button>
         </section>
       </main>
     </>
