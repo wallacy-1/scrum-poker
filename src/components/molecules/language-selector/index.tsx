@@ -46,7 +46,7 @@ const LanguageSelector: React.FC = () => {
         id={LANGUAGE_SELECTOR_ID}
         aria-expanded={isOpen}
       >
-        <span className={`fi fi-${selectedLanguage?.flag}`} />
+        <span className={`fi fi-${selectedLanguage?.flag ?? "us"}`} />
         <FontAwesomeIcon className="ml-3" icon={faChevronDown} />
       </button>
       {isOpen && (
