@@ -16,6 +16,10 @@
       "room": "Sala"
     },
     "room": {
+      "vote_button_show": "Mostrar cartas",
+      "vote_button_hide": "Esconder cartas",
+      "reveal_cards": "Revelar cartas",
+      "restart_voting": "Reiniciar votação",
       "join": "Entrar na sala",
       "player_name_input": "Nome do jogador"
     }
@@ -40,9 +44,7 @@
     "navbar": {
       "home": "Início",
       "how_to_play": "Como jogar",
-      "about": "Sobre",
-      "reveal_cards": "Revelar cartas",
-      "restart_voting": "Reiniciar votação"
+      "about": "Sobre"
     },
     "player_card": {
       "admin_icon_title": "Administrador da sala.",

@@ -1,5 +1,4 @@
 export { default as Deck } from "./deck";
-export { default as VotingCard } from "./voting-card";
 export { default as Board } from "./board";
 export { default as PlayerConfigurationMenu } from "./player-configuration-menu";
 export { default as ChangeNameModal } from "./change-name-modal";

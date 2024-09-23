@@ -10,16 +10,6 @@ const Navbar: React.FC<NavbarPropsInterface> = ({ roomId }) => {
     keyPrefix: "organisms.navbar",
   });
 
-  const handleRevealCards = () => {
-    console.log("handleRevealCards");
-    socket.emit("revealCards", roomId);
-  };
-
-  const handleRestartVoting = () => {
-    console.log("handleRestartVoting");
-    socket.emit("reset", roomId);
-  };
-
   return (
     <nav className="sticky top-0 z-40 flex items-center justify-between p-4 text-white bg-gray-800">
       <div className="flex items-center space-x-4">
@@ -28,12 +18,7 @@ const Navbar: React.FC<NavbarPropsInterface> = ({ roomId }) => {
         </Link>
       </div>
 
-      {roomId && (
-        <div className="flex space-x-4">
-          <Button onClick={handleRevealCards}>{t("reveal_cards")}</Button>
-          <Button onClick={handleRestartVoting}>{t("restart_voting")}</Button>
-        </div>
-      )}
+      
       <div className="flex space-x-4">
         <LanguageSelector />
       </div>

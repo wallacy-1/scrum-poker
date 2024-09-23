@@ -16,6 +16,10 @@
       "room": "Room"
     },
     "room": {
+      "vote_button_show": "Show cards",
+      "vote_button_hide": "Hide cards",
+      "reveal_cards": "Reveal cards",
+      "restart_voting": "Restart voting",
       "join": "Join Room",
       "player_name_input": "Player name"
     }
@@ -40,9 +44,7 @@
     "navbar": {
       "home": "Home",
       "how_to_play": "How to Play",
-      "about": "About",
-      "reveal_cards": "Reveal cards",
-      "restart_voting": "Restart voting"
+      "about": "About"
     },
     "player_card": {
       "admin_icon_title": "Room Administrator.",

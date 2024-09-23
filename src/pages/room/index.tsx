@@ -23,8 +23,11 @@ function Room() {
   }, [roomData?.players]);
 
   const [joinModal, setJoinModal] = useState(true);
+  const [showDeck, setShowDeck] = useState(false);
   const { roomId } = useParams();
   const playerInfoForm = useForm();
+  const canVoteAndIsVoting =
+    mainPlayer?.canVote && roomData?.status === RoomStatusEnum.VOTING;
 
   useEffect(() => {
     console.log("useEffect", socket.id);
@@ -67,6 +70,7 @@ function Room() {
     });
 
     return () => {
+      socket.removeAllListeners();
       socket.disconnect();
     };
   }, []);
@@ -82,6 +86,16 @@ function Room() {
     setJoinModal(false);
   };
 
+  const handleRevealCards = () => {
+    console.log("handleRevealCards");
+    socket.emit("revealCards", roomId);
+  };
+
+  const handleRestartVoting = () => {
+    console.log("handleRestartVoting");
+    socket.emit("reset", roomId);
+  };
+
   return (
     <main className="flex flex-col justify-between h-screen bg-gray-700">
       <Navbar roomId={roomData?.id} />
@@ -92,10 +106,31 @@ function Room() {
         mainPlayerIsAdmin={mainPlayer?.role === PlayerRolesEnum.ADMIN}
       />
 
-      <div className="w-full mt-20">
-        {mainPlayer?.canVote && roomData?.status === RoomStatusEnum.VOTING && (
-          <Deck />
+      <div className="w-full mt-20 bg-gray-600">
+        <div className="flex justify-center py-2 ">
+          {canVoteAndIsVoting && (
+            <Button onClick={() => setShowDeck(!showDeck)}>
+              {t(`screens.room.vote_button_${showDeck ? "hide" : "show"}`)}
+            </Button>
+          )}
+
+          {mainPlayer?.role === PlayerRolesEnum.ADMIN && (
+            <>
+              <Button onClick={handleRevealCards}>
+                {t("screens.room.reveal_cards")}
+              </Button>
+              <Button onClick={handleRestartVoting}>
+                {t("screens.room.restart_voting")}
+              </Button>
+            </>
         )}
+        </div>
+
+        <Deck
+          show={Boolean(showDeck && canVoteAndIsVoting)}
+          mainPlayerChoice={mainPlayer?.choice}
+          onClose={() => setShowDeck(false)}
+        />
       </div>
 
       {joinModal && (
@@ -111,7 +146,9 @@ function Room() {
             error={playerInfoForm.formState.errors.playerName}
           />
 
+            <div className="flex justify-end pt-2 mt-5 border-t">
           <Button type="submit">{t("screens.room.join")}</Button>
+            </div>
         </form>
       </Modal>
       )}
