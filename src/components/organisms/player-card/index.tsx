@@ -90,7 +90,7 @@ const PlayerCard: React.FC<PlayerCardPropsInterface> = ({
             roomStatus === RoomStatusEnum.REVEAL && (
               <>
                 <p className="pb-4 text-4xl">
-                  {choice ? choice : t("no_choice_text")}
+                  {choice === false ? t("no_choice_text") : choice}
                 </p>
 
                 {mainPlayerIsAdmin && (
