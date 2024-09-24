@@ -15,7 +15,10 @@ _Ler em outros idiomas: [Inglês](README.md)_
   - [Instalação](#instalação)
   - [Uso](#uso)
     - [Criação de uma sala](#criação-de-uma-sala)
-    - [Visual da sala](#visual-da-sala)
+    - [Imagens](#imagens)
+      - [Modal para convidar jogadores (QR Code e link)](#modal-para-convidar-jogadores-qr-code-e-link)
+      - [Visual da sala](#visual-da-sala)
+      - [Revelar votos](#revelar-votos)
     - [Permissões do administrador](#permissões-do-administrador)
   - [Tecnologias Utilizadas](#tecnologias-utilizadas)
   - [Contribuição](#contribuição)
@@ -79,9 +82,27 @@ npm run start:dev
 5. Mostre as cartas e discuta com a sua equipe.
 6. Use a média como o ponto/peso da história.
 
-### Visual da sala
+### Imagens
 
-![Imagem da sala](public/images/room_view.png)
+#### Modal para convidar jogadores (QR Code e link)
+
+![Modal para convidar jogadores com QR Code e link](public/images/doc/room-invite-modal-pt-BR.png)
+
+#### Visual da sala
+
+![Imagem da sala](public/images/doc/room-view-pt-BR.png)
+
+- "João" ainda não votou (**cartão vermelho**)
+- "Pedro" votou (**cartão verde**)
+- "yuri" não pode votar, ele é um observador (**cartão azul** com - ícone de olho)
+- "Jose" mostra ações do **admin** no **ícone de engrenagem**
+
+#### Revelar votos
+
+![Imagem da sala com a pontuação nas cartas dos jogadores](public/images/doc/room-reveal-pt-BR.png)
+
+- "bia" não votou por isso ficou "N/D"
+- **O admin pode alterar a nota mas ficara um aviso no card**
 
 ### Permissões do administrador
 

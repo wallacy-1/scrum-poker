@@ -15,8 +15,10 @@ _Read this in other languages: [Portugues-BR](README.pt.md)_
   - [Installation](#installation)
   - [Usage](#usage)
     - [Creating a room](#creating-a-room)
-    - [Room view](#room-view)
-    - [Room view image](#room-view-image)
+    - [Imagens](#imagens)
+      - [Modal to Invite Players (QR Code and Link)](#modal-to-invite-players-qr-code-and-link)
+      - [Room View](#room-view)
+      - [Reveal Votes](#reveal-votes)
     - [Admin permissions](#admin-permissions)
   - [Technologies Used](#technologies-used)
   - [Contributing](#contributing)
@@ -24,6 +26,8 @@ _Read this in other languages: [Portugues-BR](README.pt.md)_
 ## About
 
 Scrum Poker is a planning tool used by agile development teams to estimate the relative effort of user stories during a sprint. The app allows players to participate in a poker session and choose cards to collaboratively estimate effort.
+
+**PROJECT STATUS**: Improvement Phase.
 
 ## Features
 
@@ -33,6 +37,7 @@ Scrum Poker is a planning tool used by agile development teams to estimate the r
 - Support for multiple players in real-time (via WebSocket)
 - Multi-language support (i18n - Portuguese and English)
 - Modals for user interactions (changing name and choice)
+- Good layout to mobile
 
 ## Installation
 
@@ -81,11 +86,27 @@ npm run start:dev
 5. Reveal the cards and discuss with your team.
 6. Take the average and use it as the story point/weight.
 
-### Room view
+### Imagens
 
-### Room view image
+#### Modal to Invite Players (QR Code and Link)
 
-![Room image](public/images/room_view.png)
+![Modal to Invite Players with qr code and link](public/images/doc/room-invite-modal-en.png)
+
+#### Room View
+
+![Room view](public/images/doc/room-view-en.png)
+
+- "João" has not voted yet (**red card**)
+- "Pedro" has voted (**green card**)
+- "Yuri" cannot vote; he is an observer (**blue card** with an eye icon)
+- "Jose" shows **admin** actions on the **gear icon**
+
+#### Reveal Votes
+
+![Room view with players votes](public/images/doc/room-reveal-en.png)
+
+- "Bia" did not vote, so it shows "N/A"
+- **The admin can change the score, but a warning will remain on the card**
 
 ### Admin permissions
 
