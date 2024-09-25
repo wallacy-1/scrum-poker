@@ -17,6 +17,22 @@ import { PlayerConfigurationMenu } from "../../molecules";
 import { useTranslation } from "react-i18next";
 import { useChangeChoiceModal } from "../../../contexts";
 
+//=> will be removed in the future with custom choices
+const fibonacciDefault = [
+  "0",
+  "1",
+  "2",
+  "3",
+  "5",
+  "8",
+  "13",
+  "21",
+  "34",
+  "55",
+  "89",
+  "?",
+];
+
 const PlayerCard: React.FC<PlayerCardPropsInterface> = ({
   player,
   roomStatus,
@@ -28,7 +44,6 @@ const PlayerCard: React.FC<PlayerCardPropsInterface> = ({
   });
   const { openChoiceModal } = useChangeChoiceModal();
   const { name, choice, id, role, canVote } = player;
-  const cardValues = ["0", "1", "2", "3", "5", "8", "13", "20", "100"];
 
   const cardColor = useMemo(
     () => (choice === false ? "red" : "green"),
@@ -100,7 +115,7 @@ const PlayerCard: React.FC<PlayerCardPropsInterface> = ({
 
                 {mainPlayerIsAdmin && (
                   <FontAwesomeIcon
-                    onClick={() => openChoiceModal(name, cardValues, id)}
+                    onClick={() => openChoiceModal(name, fibonacciDefault, id)}
                     className="absolute cursor-pointer top-6 right-1"
                     title={t("admin_change_choice_icon_title")}
                     icon={faPenToSquare}

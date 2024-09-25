@@ -28,7 +28,7 @@ const ChangeChoiceModal = () => {
       title={t("molecules.change_choice_modal.title", { name: playerName })}
       backgroundOpacity
     >
-      <div className="flex">
+      <div className="grid self-start grid-cols-7 gap-3">
         {cardValues.map((value: number | string, index) => (
           <div
             key={index}
