@@ -43,18 +43,8 @@ function Room() {
       if (playerId === socket.id) {
         alert("The admin kick you from room.");
         window.location.href = "/";
+        setRoomData(undefined);
       }
-
-      setRoomData((prev) => {
-        if (!prev) return prev;
-
-        return {
-          ...prev,
-          players: prev.players.filter(
-            (player: { id: string }) => player.id !== playerId
-          ),
-        };
-      });
     });
 
     socket.on("error", (message: string) => {
