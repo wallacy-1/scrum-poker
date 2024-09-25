@@ -32,6 +32,11 @@
     }
   },
   "molecules": {
+    "board": {
+      "min": "Min",
+      "max": "Max",
+      "average": "Average"
+    },
     "change_name_modal": {
       "player_name_input": "New name:",
       "title": "Change player: {{oldName}} name."

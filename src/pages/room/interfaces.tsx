@@ -7,6 +7,9 @@ export interface RoomDataInterface {
   id: string;
   status: RoomStatusEnum;
   players: PlayerDataInterface[];
+  minChoice?: number;
+  maxChoice?: number;
+  averageChoice?: number;
 }
 
 export enum PlayerRolesEnum {

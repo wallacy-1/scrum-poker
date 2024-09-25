@@ -21,6 +21,7 @@ const PlayerCard: React.FC<PlayerCardPropsInterface> = ({
   player,
   roomStatus,
   mainPlayerIsAdmin,
+  isHighlighted,
 }) => {
   const { t } = useTranslation("", {
     keyPrefix: "organisms.player_card",
@@ -30,7 +31,7 @@ const PlayerCard: React.FC<PlayerCardPropsInterface> = ({
   const cardValues = ["0", "1", "2", "3", "5", "8", "13", "20", "100"];
 
   const cardColor = useMemo(
-    () => (choice === false ? "bg-red-400" : "bg-green-400"),
+    () => (choice === false ? "red" : "green"),
     [choice]
   );
   const isAdmin = useMemo(() => {
@@ -38,7 +39,11 @@ const PlayerCard: React.FC<PlayerCardPropsInterface> = ({
   }, [role]);
 
   return (
-    <div className="flex flex-col justify-end px-1 w-34">
+    <div
+      className={`flex flex-col justify-end px-1 w-34 transition-all duration-700 ${
+        isHighlighted ? "mb-4" : ""
+      }`}
+    >
       <div className="flex flex-col w-full">
         {isAdmin && (
           <FontAwesomeIcon
@@ -64,7 +69,7 @@ const PlayerCard: React.FC<PlayerCardPropsInterface> = ({
           )}
         </div>
       </div>
-      <PokerCard className={canVote ? cardColor : "bg-blue-400"}>
+      <PokerCard color={canVote ? cardColor : "blue"} highlight={isHighlighted}>
         <div className="relative flex flex-col items-center justify-center w-full h-full">
           {player.previousChoiceBeforeAdminChange && (
             <FontAwesomeIcon

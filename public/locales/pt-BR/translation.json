@@ -32,6 +32,11 @@
     }
   },
   "molecules": {
+    "board": {
+      "min": "Menor",
+      "max": "Maior",
+      "average": "Media"
+    },
     "change_name_modal": {
       "player_name_input": "Novo nome:",
       "title": "Alterar nome do jogador: {{oldName}}."

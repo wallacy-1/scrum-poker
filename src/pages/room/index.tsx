@@ -17,15 +17,16 @@ import { useTranslation } from "react-i18next";
 function Room() {
   const { t } = useTranslation();
   const [roomData, setRoomData] = useState<RoomDataInterface>();
+  const [joinModal, setJoinModal] = useState(true);
+  const [showDeck, setShowDeck] = useState(true);
+
+  const { roomId } = useParams();
+  const playerInfoForm = useForm();
 
   const mainPlayer: PlayerDataInterface | null = useMemo(() => {
     return getMainPlayer(roomData?.players);
   }, [roomData?.players]);
 
-  const [joinModal, setJoinModal] = useState(true);
-  const [showDeck, setShowDeck] = useState(false);
-  const { roomId } = useParams();
-  const playerInfoForm = useForm();
   const canVoteAndIsVoting =
     mainPlayer?.canVote && roomData?.status === RoomStatusEnum.VOTING;
 
@@ -97,17 +98,16 @@ function Room() {
   };
 
   return (
-    <main className="flex flex-col justify-between h-screen bg-gray-700">
+    <main className="flex flex-col h-screen bg-gray-700">
       <Navbar inviteModal />
 
       <Board
-        players={roomData?.players}
-        roomStatus={roomData?.status}
+        roomData={roomData}
         mainPlayerIsAdmin={mainPlayer?.role === PlayerRolesEnum.ADMIN}
       />
 
-      <div className="w-full mt-20 bg-gray-600">
-        <div className="flex justify-center py-2 ">
+      <div className="w-full mt-2 align-bottom bg-gray-600">
+        <div className="flex justify-center gap-3 py-2">
           {canVoteAndIsVoting && (
             <Button onClick={() => setShowDeck(!showDeck)}>
               {t(`screens.room.vote_button_${showDeck ? "hide" : "show"}`)}
