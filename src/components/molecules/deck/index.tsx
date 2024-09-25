@@ -30,7 +30,7 @@ const Deck = ({ onClose, show, mainPlayerChoice }: DeckPropsInterface) => {
     }
   }, [mainPlayerChoice]);
 
-  const handleCardSelect = (value: string | string) => {
+  const handleCardSelect = (value: string) => {
     setSelectedValue(value);
     socket.emit("chooseCard", value);
   };
