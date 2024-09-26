@@ -1,10 +1,17 @@
+import React from "react";
 import { ButtonPropsInterface } from "./interfaces";
 import { buttonVariants } from "./styles";
 
-const Button = ({ children, color, size, ...props }: ButtonPropsInterface) => {
+const Button: React.FC<ButtonPropsInterface> = ({
+  children,
+  color,
+  size,
+  error,
+  ...props
+}) => {
   return (
     <button
-      className={buttonVariants({ size: size, color: color })}
+      className={buttonVariants({ size, color, error })}
       type="button"
       {...props}
     >

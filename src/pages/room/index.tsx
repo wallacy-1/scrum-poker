@@ -1,11 +1,10 @@
-import { useForm } from "react-hook-form";
-import { Button, FormInput } from "../../components/atoms";
-import { Deck, Board } from "../../components/molecules";
+import { Button } from "../../components/atoms";
+import { Deck, Board, JoinRoomModal } from "../../components/molecules";
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import socket from "../../services/scrum-poker/webSocketService";
 import { getMainPlayer } from "../../utils";
-import { Modal, Navbar } from "../../components/organisms";
+import { Navbar } from "../../components/organisms";
 import {
   PlayerDataInterface,
   PlayerRolesEnum,
@@ -21,7 +20,6 @@ function Room() {
   const [showDeck, setShowDeck] = useState(true);
 
   const { roomId } = useParams();
-  const playerInfoForm = useForm();
 
   const mainPlayer: PlayerDataInterface | null = useMemo(() => {
     return getMainPlayer(roomData?.players);
@@ -66,14 +64,8 @@ function Room() {
     };
   }, []);
 
-  const handleJoinRoom = (data: { playerName?: string }) => {
-    const nameNoWhiteSpace = data.playerName
-      ? data.playerName.trim()
-      : undefined;
-
-    if (!nameNoWhiteSpace) return;
-
-    socket.emit("joinRoom", { roomId, playerName: nameNoWhiteSpace });
+  const handleJoinRoom = (playerName: string) => {
+    socket.emit("joinRoom", { roomId, playerName });
     setJoinModal(false);
   };
 
@@ -113,7 +105,7 @@ function Room() {
                 {t("screens.room.restart_voting")}
               </Button>
             </>
-        )}
+          )}
         </div>
 
         <Deck
@@ -123,25 +115,7 @@ function Room() {
         />
       </div>
 
-      {joinModal && (
-        <Modal title={t("screens.room.join")}>
-        <form onSubmit={playerInfoForm.handleSubmit(handleJoinRoom)}>
-          <FormInput
-            id="playerName"
-            type="text"
-            label={t("screens.room.player_name_input")}
-            register={playerInfoForm.register("playerName", {
-              required: t("form_common.required_player_name_error"),
-            })}
-            error={playerInfoForm.formState.errors.playerName}
-          />
-
-            <div className="flex justify-end pt-2 mt-5 border-t">
-          <Button type="submit">{t("screens.room.join")}</Button>
-            </div>
-        </form>
-      </Modal>
-      )}
+      {joinModal && <JoinRoomModal onSubmit={handleJoinRoom} />}
     </main>
   );
 }
