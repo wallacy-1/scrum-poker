@@ -3,10 +3,10 @@ import socket from "../../../services/scrum-poker/webSocketService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { DeckPropsInterface } from "./interfaces";
+import { fibonacciDefault } from "../../../constants/default-votes";
 
 const Deck = ({ onClose, show, mainPlayerChoice }: DeckPropsInterface) => {
-  const cardValues = [0, 1, 2, 3, 5, 8, 13, 20, 100];
-  const [selectedValue, setSelectedValue] = useState<number | null>(null);
+  const [selectedValue, setSelectedValue] = useState<string | null>(null);
 
   useEffect(() => {
     if (mainPlayerChoice === false) {
@@ -14,7 +14,7 @@ const Deck = ({ onClose, show, mainPlayerChoice }: DeckPropsInterface) => {
     }
   }, [mainPlayerChoice]);
 
-  const handleCardSelect = (value: number) => {
+  const handleCardSelect = (value: string) => {
     setSelectedValue(value);
     socket.emit("chooseCard", value);
   };
@@ -37,7 +37,7 @@ const Deck = ({ onClose, show, mainPlayerChoice }: DeckPropsInterface) => {
         />
       </div>
       <div className="flex flex-wrap justify-center w-full px-4 pb-2 select-none grow">
-        {cardValues.map((cardValue, index) => (
+        {fibonacciDefault.map((cardValue, index) => (
           <div
             key={index}
             role="button"

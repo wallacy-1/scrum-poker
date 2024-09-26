@@ -32,6 +32,11 @@
     }
   },
   "molecules": {
+    "board": {
+      "min": "Menor",
+      "max": "Maior",
+      "average": "Media"
+    },
     "change_name_modal": {
       "player_name_input": "Novo nome:",
       "title": "Alterar nome do jogador: {{oldName}}."
@@ -40,7 +45,7 @@
       "title": "Alterar escolha do jogador: {{name}}."
     },
     "invite_players_modal": {
-      "Invite_players": "Convidar jogadores.",
+      "Invite_players": "Convidar jogadores",
       "how_to_invite": "Para convidar outros jogadores envie o link da sala.",
       "qr_code_description": "Escaneie o Qr code para rápido acesso pelo celular!",
       "qr_code_title": "Qrcode com link da sala"
