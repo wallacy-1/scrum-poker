@@ -16,22 +16,7 @@ import { useMemo } from "react";
 import { PlayerConfigurationMenu } from "../../molecules";
 import { useTranslation } from "react-i18next";
 import { useChangeChoiceModal } from "../../../contexts";
-
-//=> will be removed in the future with custom choices
-const fibonacciDefault = [
-  "0",
-  "1",
-  "2",
-  "3",
-  "5",
-  "8",
-  "13",
-  "21",
-  "34",
-  "55",
-  "89",
-  "?",
-];
+import { fibonacciDefault } from "../../../constants/default-votes";
 
 const PlayerCard: React.FC<PlayerCardPropsInterface> = ({
   player,

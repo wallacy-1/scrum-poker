@@ -3,23 +3,7 @@ import socket from "../../../services/scrum-poker/webSocketService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { DeckPropsInterface } from "./interfaces";
-
-//=> will be removed in the future with custom choices
-const fibonacciDefault = [
-  "☕",
-  "0",
-  "1",
-  "2",
-  "3",
-  "5",
-  "8",
-  "13",
-  "21",
-  "34",
-  "55",
-  "89",
-  "?",
-];
+import { fibonacciDefault } from "../../../constants/default-votes";
 
 const Deck = ({ onClose, show, mainPlayerChoice }: DeckPropsInterface) => {
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
