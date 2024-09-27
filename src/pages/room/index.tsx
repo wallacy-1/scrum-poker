@@ -1,11 +1,10 @@
-import { useForm } from "react-hook-form";
-import { Button, FormInput } from "../../components/atoms";
-import { Deck, Board } from "../../components/molecules";
+import { Button } from "../../components/atoms";
+import { Deck, Board, JoinRoomModal } from "../../components/molecules";
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import socket from "../../services/scrum-poker/webSocketService";
 import { getMainPlayer } from "../../utils";
-import { Modal, Navbar } from "../../components/organisms";
+import { Navbar } from "../../components/organisms";
 import {
   PlayerDataInterface,
   PlayerRolesEnum,
@@ -17,15 +16,15 @@ import { useTranslation } from "react-i18next";
 function Room() {
   const { t } = useTranslation();
   const [roomData, setRoomData] = useState<RoomDataInterface>();
+  const [joinModal, setJoinModal] = useState(true);
+  const [showDeck, setShowDeck] = useState(true);
+
+  const { roomId } = useParams();
 
   const mainPlayer: PlayerDataInterface | null = useMemo(() => {
     return getMainPlayer(roomData?.players);
   }, [roomData?.players]);
 
-  const [joinModal, setJoinModal] = useState(true);
-  const [showDeck, setShowDeck] = useState(false);
-  const { roomId } = useParams();
-  const playerInfoForm = useForm();
   const canVoteAndIsVoting =
     mainPlayer?.canVote && roomData?.status === RoomStatusEnum.VOTING;
 
@@ -42,18 +41,8 @@ function Room() {
       if (playerId === socket.id) {
         alert("The admin kick you from room.");
         window.location.href = "/";
+        setRoomData(undefined);
       }
-
-      setRoomData((prev) => {
-        if (!prev) return prev;
-
-        return {
-          ...prev,
-          players: prev.players.filter(
-            (player: { id: string }) => player.id !== playerId
-          ),
-        };
-      });
     });
 
     socket.on("error", (message: string) => {
@@ -75,14 +64,8 @@ function Room() {
     };
   }, []);
 
-  const handleJoinRoom = (data: { playerName?: string }) => {
-    const nameNoWhiteSpace = data.playerName
-      ? data.playerName.trim()
-      : undefined;
-
-    if (!nameNoWhiteSpace) return;
-
-    socket.emit("joinRoom", { roomId, playerName: nameNoWhiteSpace });
+  const handleJoinRoom = (playerName: string) => {
+    socket.emit("joinRoom", { roomId, playerName });
     setJoinModal(false);
   };
 
@@ -97,17 +80,16 @@ function Room() {
   };
 
   return (
-    <main className="flex flex-col justify-between h-screen bg-gray-700">
+    <main className="flex flex-col h-screen bg-gray-700">
       <Navbar inviteModal />
 
       <Board
-        players={roomData?.players}
-        roomStatus={roomData?.status}
+        roomData={roomData}
         mainPlayerIsAdmin={mainPlayer?.role === PlayerRolesEnum.ADMIN}
       />
 
-      <div className="w-full mt-20 bg-gray-600">
-        <div className="flex justify-center py-2 ">
+      <div className="w-full mt-2 align-bottom bg-gray-600">
+        <div className="flex justify-center gap-3 py-2">
           {canVoteAndIsVoting && (
             <Button onClick={() => setShowDeck(!showDeck)}>
               {t(`screens.room.vote_button_${showDeck ? "hide" : "show"}`)}
@@ -123,7 +105,7 @@ function Room() {
                 {t("screens.room.restart_voting")}
               </Button>
             </>
-        )}
+          )}
         </div>
 
         <Deck
@@ -133,25 +115,7 @@ function Room() {
         />
       </div>
 
-      {joinModal && (
-        <Modal title={t("screens.room.join")}>
-        <form onSubmit={playerInfoForm.handleSubmit(handleJoinRoom)}>
-          <FormInput
-            id="playerName"
-            type="text"
-            label={t("screens.room.player_name_input")}
-            register={playerInfoForm.register("playerName", {
-              required: t("form_common.required_player_name_error"),
-            })}
-            error={playerInfoForm.formState.errors.playerName}
-          />
-
-            <div className="flex justify-end pt-2 mt-5 border-t">
-          <Button type="submit">{t("screens.room.join")}</Button>
-            </div>
-        </form>
-      </Modal>
-      )}
+      {joinModal && <JoinRoomModal onSubmit={handleJoinRoom} />}
     </main>
   );
 }

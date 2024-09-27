@@ -7,4 +7,5 @@ export interface PlayerCardPropsInterface {
   player: PlayerDataInterface;
   roomStatus?: RoomStatusEnum;
   mainPlayerIsAdmin: boolean;
+  isHighlighted?: boolean;
 }

@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useChangeNameModal } from "../../../contexts";
 import socket from "../../../services/scrum-poker/webSocketService";
+import { minNameLength, maxNameLength } from "../../../constants/player-name";
 
 const ChangeNameModal = () => {
   const { t } = useTranslation();
@@ -20,7 +21,11 @@ const ChangeNameModal = () => {
 
   return (
     <Modal
-      title={t("molecules.change_name_modal.title", { oldName })}
+      title={
+        targetId === socket.id
+          ? t("molecules.change_name_modal.title_main_player")
+          : t("molecules.change_name_modal.title", { oldName })
+      }
       backgroundOpacity
     >
       <form className="text-left" onSubmit={handleSubmit(handleChangeName)}>
@@ -30,13 +35,35 @@ const ChangeNameModal = () => {
           label={t("molecules.change_name_modal.player_name_input")}
           register={register("newPlayerName", {
             value: oldName,
-            required: t("form_common.required_player_name_error"),
+            minLength: {
+              value: minNameLength,
+              message: t("form_common.min_length_error", { minNameLength }),
+            },
+            maxLength: {
+              value: maxNameLength,
+              message: t("form_common.max_length_error", { maxNameLength }),
+            },
+            pattern: {
+              value: /^[a-zA-Z0-9.-]+$/,
+              message: t("form_common.pattern_no_especial_caracteres_error"),
+            },
+            required: {
+              value: true,
+              message: t("form_common.required_player_name_error"),
+            },
           })}
           error={formState.errors.newPlayerName}
         />
         <div className="flex justify-between pt-2 mt-5 border-t">
           <Button onClick={closeNameModal}>{t("common.cancel")}</Button>
-          <Button type="submit">{t("common.save")}</Button>
+          <Button
+            type="submit"
+            color={`${formState.errors.newPlayerName ? "danger" : "primary"}`}
+            disabled={!!formState.errors.newPlayerName}
+            error={!!formState.errors.newPlayerName}
+          >
+            {t("common.save")}
+          </Button>
         </div>
       </form>
     </Modal>

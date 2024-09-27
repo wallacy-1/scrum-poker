@@ -12,16 +12,17 @@ _Ler em outros idiomas: [Inglês](README.md)_
   - [Índice](#índice)
   - [Sobre](#sobre)
   - [Funcionalidades](#funcionalidades)
-  - [Instalação](#instalação)
   - [Uso](#uso)
     - [Criação de uma sala](#criação-de-uma-sala)
     - [Imagens](#imagens)
       - [Modal para convidar jogadores (QR Code e link)](#modal-para-convidar-jogadores-qr-code-e-link)
       - [Visual da sala](#visual-da-sala)
       - [Revelar votos](#revelar-votos)
+      - [Menor, Maior e Media](#menor-maior-e-media)
     - [Permissões do administrador](#permissões-do-administrador)
   - [Tecnologias Utilizadas](#tecnologias-utilizadas)
   - [Contribuição](#contribuição)
+  - [Instalação](#instalação)
 
 ## Sobre
 
@@ -34,6 +35,69 @@ O Scrum Poker é uma ferramenta de planejamento utilizada por equipes de desenvo
 - Administração de permissões para o moderador da sala
 - Suporte a múltiplos jogadores em tempo real (via WebSocket)
 - Suporte aos idiomas Portugues-BR e ingles (i18n)
+- Ao revelar as pontuações, são exibidos o Maior, o Menor e a Média dos valores
+
+## Uso
+
+### Criação de uma sala
+
+1. Entre em uma chamada de video com a sua equipe (opcional).
+2. Na página principal, Crie uma sala.
+3. Compartilhe o link da sala com os jogadores.
+4. Escolha uma carta e espere os outros jogadores votarem.
+5. Mostre as cartas e discuta com a sua equipe.
+6. Use a média como o ponto/peso da história.
+
+### Imagens
+
+#### Modal para convidar jogadores (QR Code e link)
+
+![Modal para convidar jogadores com QR Code e link](public/images/doc/room-invite-modal-pt-BR.png)
+
+#### Visual da sala
+
+![Imagem da sala](public/images/doc/room-view-pt-BR.png)
+
+- "João" ainda não votou (**cartão vermelho**)
+- "Pedro" votou (**cartão verde**)
+- "yuri" não pode votar, ele é um observador (**cartão azul** com - ícone de olho)
+- "Jose" mostra ações do **admin** no **ícone de engrenagem**
+
+#### Revelar votos
+
+![Imagem da sala com a pontuação nas cartas dos jogadores](public/images/doc/room-reveal-pt-BR.png)
+
+- "bia" não votou por isso ficou "N/D"
+- **O admin pode alterar a nota mas ficara um aviso no card**
+
+#### Menor, Maior e Media
+
+![Imagem da sala com a pontuação nas cartas dos jogadores e as cartas com o valor 2 estão elevadas](public/images/doc/room-reveal-score-pt-BR.png)
+
+- **Menor** mostra a menor pontuação.
+- **Maior** mostra a maior pontuação.
+- Ao clicar em **Menor** ou **Maior**, as cartas com o mesmo valor serão destacadas. Por exemplo, na imagem, ao clicar em **Menor = 2**, todas as cartas com valor 2 foram elevadas.
+
+### Permissões do administrador
+
+- Alterar a carta dos jogadores
+- Mudar o nome dos jogadores
+- Remover jogador da sala
+- Reiniciar votos
+- Revelar cartas
+- Impedir voto de algum jogador
+
+## Tecnologias Utilizadas
+
+- React: Biblioteca para criação de interfaces.
+- React Router: Gerenciamento de rotas no projeto.
+- Tailwind CSS: Framework CSS para estilização.
+- Socket IO: Comunicação em tempo real entre os jogadores.
+- i18n: Suporte para múltiplos idiomas.
+
+## Contribuição
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests.
 
 ## Instalação
 
@@ -70,57 +134,3 @@ npm install
 
 npm run start:dev
 ```
-
-## Uso
-
-### Criação de uma sala
-
-1. Entre em uma chamada de video com a sua equipe (opcional).
-2. Na página principal, Crie uma sala.
-3. Compartilhe o link da sala com os jogadores.
-4. Escolha uma carta e espere os outros jogadores votarem.
-5. Mostre as cartas e discuta com a sua equipe.
-6. Use a média como o ponto/peso da história.
-
-### Imagens
-
-#### Modal para convidar jogadores (QR Code e link)
-
-![Modal para convidar jogadores com QR Code e link](public/images/doc/room-invite-modal-pt-BR.png)
-
-#### Visual da sala
-
-![Imagem da sala](public/images/doc/room-view-pt-BR.png)
-
-- "João" ainda não votou (**cartão vermelho**)
-- "Pedro" votou (**cartão verde**)
-- "yuri" não pode votar, ele é um observador (**cartão azul** com - ícone de olho)
-- "Jose" mostra ações do **admin** no **ícone de engrenagem**
-
-#### Revelar votos
-
-![Imagem da sala com a pontuação nas cartas dos jogadores](public/images/doc/room-reveal-pt-BR.png)
-
-- "bia" não votou por isso ficou "N/D"
-- **O admin pode alterar a nota mas ficara um aviso no card**
-
-### Permissões do administrador
-
-- Alterar a carta dos jogadores
-- Mudar o nome dos jogadores
-- Remover jogador da sala
-- Reiniciar votos
-- Revelar cartas
-- Impedir voto de algum jogador
-
-## Tecnologias Utilizadas
-
-- React: Biblioteca para criação de interfaces.
-- React Router: Gerenciamento de rotas no projeto.
-- Tailwind CSS: Framework CSS para estilização.
-- Socket IO: Comunicação em tempo real entre os jogadores.
-- i18n: Suporte para múltiplos idiomas.
-
-## Contribuição
-
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests.

@@ -10,6 +10,9 @@
     "loading": "Carregando..."
   },
   "form_common": {
+    "min_length_error": "O tamanho mínimo é de {{minNameLength}} caracteres.",
+    "max_length_error": "O tamanho máximo é de {{maxNameLength}} caracteres.",
+    "pattern_no_especial_caracteres_error": "Somente letras (A-Z) e números (0-9) são permitidos.",
     "required_player_name_error": "O nome do jogador é obrigatório."
   },
   "screens": {
@@ -32,15 +35,21 @@
     }
   },
   "molecules": {
+    "board": {
+      "min": "Menor",
+      "max": "Maior",
+      "average": "Media"
+    },
     "change_name_modal": {
       "player_name_input": "Novo nome:",
-      "title": "Alterar nome do jogador: {{oldName}}."
+      "title_other_player": "Altere seu nome de {{oldName}}.",
+      "title_main_player": "Alterar o nome do jogador {{oldName}}."
     },
     "change_choice_modal": {
       "title": "Alterar escolha do jogador: {{name}}."
     },
     "invite_players_modal": {
-      "Invite_players": "Convidar jogadores.",
+      "Invite_players": "Convidar jogadores",
       "how_to_invite": "Para convidar outros jogadores envie o link da sala.",
       "qr_code_description": "Escaneie o Qr code para rápido acesso pelo celular!",
       "qr_code_title": "Qrcode com link da sala"

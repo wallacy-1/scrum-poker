@@ -1,10 +1,6 @@
-import {
-  PlayerDataInterface,
-  RoomStatusEnum,
-} from "../../../pages/room/interfaces";
+import { RoomDataInterface } from "../../../pages/room/interfaces";
 
 export interface BoardPropsInterface {
-  players?: PlayerDataInterface[];
-  roomStatus?: RoomStatusEnum;
+  roomData?: RoomDataInterface;
   mainPlayerIsAdmin: boolean;
 }

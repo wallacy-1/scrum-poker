@@ -16,21 +16,22 @@ import { useMemo } from "react";
 import { PlayerConfigurationMenu } from "../../molecules";
 import { useTranslation } from "react-i18next";
 import { useChangeChoiceModal } from "../../../contexts";
+import { fibonacciDefault } from "../../../constants/default-votes";
 
 const PlayerCard: React.FC<PlayerCardPropsInterface> = ({
   player,
   roomStatus,
   mainPlayerIsAdmin,
+  isHighlighted,
 }) => {
   const { t } = useTranslation("", {
     keyPrefix: "organisms.player_card",
   });
   const { openChoiceModal } = useChangeChoiceModal();
   const { name, choice, id, role, canVote } = player;
-  const cardValues = ["0", "1", "2", "3", "5", "8", "13", "20", "100"];
 
   const cardColor = useMemo(
-    () => (choice === false ? "bg-red-400" : "bg-green-400"),
+    () => (choice === false ? "red" : "green"),
     [choice]
   );
   const isAdmin = useMemo(() => {
@@ -38,7 +39,11 @@ const PlayerCard: React.FC<PlayerCardPropsInterface> = ({
   }, [role]);
 
   return (
-    <div className="flex flex-col justify-end px-1 w-34">
+    <div
+      className={`flex flex-col justify-end px-1 w-34 transition-all duration-700 ${
+        isHighlighted ? "mb-4" : ""
+      }`}
+    >
       <div className="flex flex-col w-full">
         {isAdmin && (
           <FontAwesomeIcon
@@ -64,7 +69,7 @@ const PlayerCard: React.FC<PlayerCardPropsInterface> = ({
           )}
         </div>
       </div>
-      <PokerCard className={canVote ? cardColor : "bg-blue-400"}>
+      <PokerCard color={canVote ? cardColor : "blue"} highlight={isHighlighted}>
         <div className="relative flex flex-col items-center justify-center w-full h-full">
           {player.previousChoiceBeforeAdminChange && (
             <FontAwesomeIcon
@@ -95,7 +100,7 @@ const PlayerCard: React.FC<PlayerCardPropsInterface> = ({
 
                 {mainPlayerIsAdmin && (
                   <FontAwesomeIcon
-                    onClick={() => openChoiceModal(name, cardValues, id)}
+                    onClick={() => openChoiceModal(name, fibonacciDefault, id)}
                     className="absolute cursor-pointer top-6 right-1"
                     title={t("admin_change_choice_icon_title")}
                     icon={faPenToSquare}

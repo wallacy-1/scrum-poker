@@ -1,17 +1,9 @@
 import { PokerCardPropsInterface } from "./interfaces";
+import { pokerCardVariants } from "./styles";
 
-const PokerCard = ({
-  onClick,
-  className,
-  children,
-}: PokerCardPropsInterface) => {
+const PokerCard = ({ color, highlight, children }: PokerCardPropsInterface) => {
   return (
-    <div
-      className={`${className} flex flex-col justify-between h-40 px-1 mx-4 my-2 border-2 border-gray-800 rounded-md select-none w-28`}
-      onClick={onClick}
-    >
-      {children}
-    </div>
+    <div className={pokerCardVariants({ color, highlight })}>{children}</div>
   );
 };
 
