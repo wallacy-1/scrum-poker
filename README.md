@@ -15,7 +15,7 @@ _Read this in other languages: [Portugues-BR](README.pt.md)_
   - [Installation](#installation)
   - [Usage](#usage)
     - [Creating a room](#creating-a-room)
-    - [Imagens](#imagens)
+    - [Images](#images)
       - [Modal to Invite Players (QR Code and Link)](#modal-to-invite-players-qr-code-and-link)
       - [Room View](#room-view)
       - [Reveal Votes](#reveal-votes)
@@ -86,7 +86,7 @@ npm run start:dev
 5. Reveal the cards and discuss with your team.
 6. Take the average and use it as the story point/weight.
 
-### Imagens
+### Images
 
 #### Modal to Invite Players (QR Code and Link)
 
