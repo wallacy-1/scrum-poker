@@ -1,4 +1,9 @@
 {
+  "dynamic_title": {
+    "default": "ScrumPoker",
+    "reveal": "ScrumPoker - Reveal",
+    "voting": "ScrumPoker - {{votedCount}} voted - {{votingCount}} voting"
+  },
   "common": {
     "yes": "Yes",
     "no": "No",
