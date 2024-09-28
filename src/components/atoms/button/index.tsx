@@ -6,12 +6,13 @@ const Button: React.FC<ButtonPropsInterface> = ({
   children,
   color,
   size,
+  highlight,
   error,
   ...props
 }) => {
   return (
     <button
-      className={buttonVariants({ size, color, error })}
+      className={buttonVariants({ size, color, error, highlight })}
       type="button"
       {...props}
     >

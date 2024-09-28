@@ -64,6 +64,48 @@ function Room() {
     };
   }, []);
 
+  useEffect(() => {
+    if (roomData?.status) {
+      let link: any = document.querySelector("link[rel*='icon']");
+
+      if (!link) {
+        link = document.createElement("link");
+        link.rel = "icon";
+        document.getElementsByTagName("head")[0].appendChild(link);
+      }
+
+      if (roomData.status === RoomStatusEnum.VOTING) {
+        document.title = t("dynamic_title.voting", {
+          votedCount: roomData.votedPlayersCount,
+          votingCount: roomData.votingPlayersCount,
+        });
+      } else {
+        document.title = t("dynamic_title.reveal");
+      }
+
+      if (roomData.status === RoomStatusEnum.REVEAL) {
+        link.href = "/favicon-blue.png";
+      } else if (roomData.votingPlayersCount === 0) {
+        link.href = "/favicon-green.png";
+      } else if (roomData.votedPlayersCount >= roomData.votingPlayersCount) {
+        link.href = "/favicon-yellow.png";
+      } else {
+        link.href = "/favicon-red.png";
+      }
+    }
+
+    return () => {
+      const link: any = document.querySelector("link[rel*='icon']");
+      link.href = "/favicon-default.png";
+      document.title = t("dynamic_title.default");
+    };
+  }, [
+    roomData?.votedPlayersCount,
+    roomData?.votingPlayersCount,
+    roomData?.status,
+    t,
+  ]);
+
   const handleJoinRoom = (playerName: string) => {
     socket.emit("joinRoom", { roomId, playerName });
     setJoinModal(false);
