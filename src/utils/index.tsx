@@ -1,2 +1,2 @@
-export * from "./getMainPlayer.utils";
+export * from "./get-main-player";
 export * from "./getShortString.utils";
