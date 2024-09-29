@@ -29,11 +29,9 @@ function Room() {
     mainPlayer?.canVote && roomData?.status === RoomStatusEnum.VOTING;
 
   useEffect(() => {
-    console.log("useEffect", socket.id);
     socket.connect();
 
     socket.on("roomUpdate", (newRoomData) => {
-      console.log("socket received - newRoomData: ", newRoomData);
       setRoomData(newRoomData);
     });
 
@@ -46,16 +44,12 @@ function Room() {
     });
 
     socket.on("error", (message: string) => {
-      console.log("socket received - ERROR: " + message);
       alert(message);
       window.location.href = "/";
     });
 
     socket.on("disconnect", () => {
-      // if (playerName) {
-      console.log("socket received - disconnect");
-      // alert("Disconnected from server");
-      // }
+      alert("Disconnected from server");
     });
 
     return () => {
@@ -112,12 +106,10 @@ function Room() {
   };
 
   const handleRevealCards = () => {
-    console.log("handleRevealCards");
     socket.emit("revealCards", roomId);
   };
 
   const handleRestartVoting = () => {
-    console.log("handleRestartVoting");
     socket.emit("reset", roomId);
   };
 

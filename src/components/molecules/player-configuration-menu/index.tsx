@@ -27,19 +27,14 @@ const PlayerConfigurationMenu = ({
   const { openNameModal } = useChangeNameModal();
 
   const handleRemovePlayer = useCallback(() => {
-    console.log(`handleRemovePlayer - called with targetId: ${id}`);
-    // TODO: open modal confirmation
     socket.emit("kickPlayer", id);
   }, [id]);
 
   const handleToggleVotingStatus = useCallback(() => {
-    console.log(`handleToggleVotingStatus - called with targetId: ${id}`);
     socket.emit("updateVotingStatus", { targetId: id, canVote: !canVote });
   }, [canVote, id]);
 
   const handleTransferAdmin = useCallback(() => {
-    // TODO: open modal confirmation
-    console.log("handleTransferAdmin");
     socket.emit("transferAdmin", id);
   }, [id]);
 

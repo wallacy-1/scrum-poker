@@ -26,22 +26,16 @@ function Home() {
   }, [navigate]);
 
   const handleCreateRoom = () => {
-    console.log(`handleCreateRoom`);
-
     socket.emit("createRoom");
   };
 
   return (
-    <>
-      <main className="flex flex-col items-center w-full h-screen">
-        <Navbar />
-        <section className="flex items-center justify-center w-full h-full bg-gray-700">
-          <Button onClick={handleCreateRoom}>
-            {t("screens.home.new_room")}
-          </Button>
-        </section>
-      </main>
-    </>
+    <main className="flex flex-col items-center w-full h-screen">
+      <Navbar />
+      <section className="flex items-center justify-center w-full h-full bg-gray-700">
+        <Button onClick={handleCreateRoom}>{t("screens.home.new_room")}</Button>
+      </section>
+    </main>
   );
 }
 
