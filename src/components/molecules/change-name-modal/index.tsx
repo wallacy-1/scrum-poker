@@ -23,8 +23,8 @@ const ChangeNameModal = () => {
     <Modal
       title={
         targetId === socket.id
-          ? t("molecules.change_name_modal.title_main_player")
-          : t("molecules.change_name_modal.title", { oldName })
+          ? t("molecules.change_name_modal.title_main_player", { oldName })
+          : t("molecules.change_name_modal.title_other_player", { oldName })
       }
       backgroundOpacity
     >

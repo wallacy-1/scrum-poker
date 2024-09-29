@@ -47,8 +47,8 @@
     },
     "change_name_modal": {
       "player_name_input": "Novo nome:",
-      "title_other_player": "Altere seu nome de {{oldName}}.",
-      "title_main_player": "Alterar o nome do jogador {{oldName}}."
+      "title_main_player": "Altere seu nome de {{oldName}}.",
+      "title_other_player": "Alterar o nome do jogador {{oldName}}."
     },
     "change_choice_modal": {
       "title": "Alterar escolha do jogador: {{name}}."
