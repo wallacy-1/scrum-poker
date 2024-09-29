@@ -63,8 +63,8 @@ const Board = ({ roomData, mainPlayerIsAdmin }: BoardPropsInterface) => {
       )}
       {status === RoomStatusEnum.VOTING && (
         <div className="grid self-start grid-cols-2 gap-2.5 pt-1 pl-5 text-center">
-          <p>Voted</p>
-          <p>Voting</p>
+          <p>{t("Voted")}</p>
+          <p>{t("Voting")}</p>
 
           <Button
             size="lg"

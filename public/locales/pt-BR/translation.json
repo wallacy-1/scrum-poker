@@ -43,7 +43,9 @@
     "board": {
       "min": "Menor",
       "max": "Maior",
-      "average": "Media"
+      "average": "Media",
+      "Voted": "Votou",
+      "Voting": "Votando"
     },
     "change_name_modal": {
       "player_name_input": "Novo nome:",
