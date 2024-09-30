@@ -42,7 +42,7 @@ function Room() {
         setRoomId(roomId);
         setJoinModal(true);
       } catch (error) {
-        alert(t("screens.room.room_not_found"));
+        alert("Room not found");
         navigate("/");
       } finally {
         setLoading(false);
@@ -50,7 +50,7 @@ function Room() {
     };
 
     validateRoom();
-  }, [navigate, roomId, setLoading, setRoomId, t]);
+  }, [navigate, roomId, setLoading, setRoomId]);
 
   useEffect(() => {
     socket.connect();
