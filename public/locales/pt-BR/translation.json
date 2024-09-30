@@ -22,7 +22,9 @@
   },
   "screens": {
     "home": {
-      "new_room": "Criar sala"
+      "new_room": "Criar Sala",
+      "creating_room": "Criando Sala...",
+      "error_creating_room": "Erro ao tentar criar sala"
     },
     "room": {
       "vote_button_show": "Mostrar cartas",

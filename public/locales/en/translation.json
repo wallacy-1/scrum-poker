@@ -22,7 +22,9 @@
   },
   "screens": {
     "home": {
-      "new_room": "New room"
+      "new_room": "Create New Room",
+      "creating_room": "Creating Room...",
+      "error_creating_room": "Error creating the room"
     },
     "room": {
       "vote_button_show": "Show cards",
