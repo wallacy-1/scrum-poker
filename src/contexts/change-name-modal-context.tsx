@@ -1,9 +1,11 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useMemo } from "react";
 import { ChangeNameModal } from "../components/molecules";
 
 interface ChangeNameModalContextInterface {
   oldName: string;
   targetId: string;
+  roomId?: string;
+  setRoomId: (roomId?: string) => void;
   openNameModal: (name: string, id: string) => void;
   closeNameModal: () => void;
 }
@@ -16,6 +18,7 @@ export const ChangeNameModalProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [roomId, setRoomId] = useState<string | undefined>();
   const [oldName, setOldName] = useState<string>("");
   const [targetId, setTargetId] = useState<string>("");
 
@@ -29,10 +32,20 @@ export const ChangeNameModalProvider: React.FC<{
     setIsOpen(false);
   };
 
+  const contextValue = useMemo(
+    () => ({
+      oldName,
+      targetId,
+      roomId,
+      setRoomId,
+      openNameModal,
+      closeNameModal,
+    }),
+    [oldName, targetId, roomId]
+  );
+
   return (
-    <ChangeNameModalContext.Provider
-      value={{ oldName, targetId, openNameModal, closeNameModal }}
-    >
+    <ChangeNameModalContext.Provider value={contextValue}>
       {children}
       {isOpen && <ChangeNameModal />}
     </ChangeNameModalContext.Provider>

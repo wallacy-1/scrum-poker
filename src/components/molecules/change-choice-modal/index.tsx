@@ -3,7 +3,7 @@ import { Button } from "../../atoms";
 import { Modal } from "../../organisms";
 import { useTranslation } from "react-i18next";
 import { useChangeChoiceModal } from "../../../contexts";
-import socket from "../../../services/scrum-poker/webSocketService";
+import socket from "../../../services/web-socket-service";
 
 const ChangeChoiceModal = () => {
   const { t } = useTranslation();
@@ -29,9 +29,9 @@ const ChangeChoiceModal = () => {
       backgroundOpacity
     >
       <div className="grid self-start grid-cols-7 gap-3">
-        {cardValues.map((value: number | string, index) => (
+        {cardValues.map((value: number | string) => (
           <div
-            key={index}
+            key={value}
             onClick={() => setChoice(value)}
             className={`${
               choice === value ? "bg-green-400" : "bg-blue-400"

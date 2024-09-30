@@ -1,9 +1,9 @@
 import { Button } from "../../components/atoms";
 import { Deck, Board, JoinRoomModal } from "../../components/molecules";
 import { useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
-import socket from "../../services/scrum-poker/webSocketService";
-import { getMainPlayer } from "../../utils";
+import { useNavigate, useParams } from "react-router-dom";
+import socket from "../../services/web-socket-service";
+import { getMainPlayer, updateFavicon } from "../../utils";
 import { Navbar } from "../../components/organisms";
 import {
   PlayerDataInterface,
@@ -12,13 +12,17 @@ import {
   RoomStatusEnum,
 } from "./interfaces";
 import { useTranslation } from "react-i18next";
+import { useChangeNameModal, useSpinner } from "../../contexts";
+import axiosInstance from "../../services/axios-instance";
 
 function Room() {
   const { t } = useTranslation();
   const [roomData, setRoomData] = useState<RoomDataInterface>();
-  const [joinModal, setJoinModal] = useState(true);
+  const [joinModal, setJoinModal] = useState(false);
   const [showDeck, setShowDeck] = useState(true);
-
+  const { setRoomId } = useChangeNameModal();
+  const { setLoading } = useSpinner();
+  const navigate = useNavigate();
   const { roomId } = useParams();
 
   const mainPlayer: PlayerDataInterface | null = useMemo(() => {
@@ -29,51 +33,58 @@ function Room() {
     mainPlayer?.canVote && roomData?.status === RoomStatusEnum.VOTING;
 
   useEffect(() => {
-    console.log("useEffect", socket.id);
+    setLoading(true);
+
+    const validateRoom = async () => {
+      try {
+        await axiosInstance.get("/scrumPoker/" + roomId);
+
+        setRoomId(roomId);
+        setJoinModal(true);
+      } catch (error) {
+        alert("Room not found");
+        navigate("/");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    validateRoom();
+  }, [navigate, roomId, setLoading, setRoomId]);
+
+  useEffect(() => {
     socket.connect();
 
     socket.on("roomUpdate", (newRoomData) => {
-      console.log("socket received - newRoomData: ", newRoomData);
       setRoomData(newRoomData);
     });
 
     socket.on("playerKicked", (playerId: string) => {
       if (playerId === socket.id) {
         alert("The admin kick you from room.");
-        window.location.href = "/";
+        navigate("/");
         setRoomData(undefined);
       }
     });
 
     socket.on("error", (message: string) => {
-      console.log("socket received - ERROR: " + message);
       alert(message);
-      window.location.href = "/";
+      navigate("/");
     });
 
     socket.on("disconnect", () => {
-      // if (playerName) {
-      console.log("socket received - disconnect");
-      // alert("Disconnected from server");
-      // }
+      alert("Disconnected from server");
+      navigate("/");
     });
 
     return () => {
       socket.removeAllListeners();
       socket.disconnect();
     };
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     if (roomData?.status) {
-      let link: any = document.querySelector("link[rel*='icon']");
-
-      if (!link) {
-        link = document.createElement("link");
-        link.rel = "icon";
-        document.getElementsByTagName("head")[0].appendChild(link);
-      }
-
       if (roomData.status === RoomStatusEnum.VOTING) {
         document.title = t("dynamic_title.voting", {
           votedCount: roomData.votedPlayersCount,
@@ -84,19 +95,18 @@ function Room() {
       }
 
       if (roomData.status === RoomStatusEnum.REVEAL) {
-        link.href = "/favicon-blue.png";
+        updateFavicon("/favicon-blue.png");
       } else if (roomData.votingPlayersCount === 0) {
-        link.href = "/favicon-green.png";
+        updateFavicon("/favicon-green.png");
       } else if (roomData.votedPlayersCount >= roomData.votingPlayersCount) {
-        link.href = "/favicon-yellow.png";
+        updateFavicon("/favicon-yellow.png");
       } else {
-        link.href = "/favicon-red.png";
+        updateFavicon("/favicon-red.png");
       }
     }
 
     return () => {
-      const link: any = document.querySelector("link[rel*='icon']");
-      link.href = "/favicon-default.png";
+      updateFavicon("/favicon-default.png");
       document.title = t("dynamic_title.default");
     };
   }, [
@@ -112,12 +122,10 @@ function Room() {
   };
 
   const handleRevealCards = () => {
-    console.log("handleRevealCards");
     socket.emit("revealCards", roomId);
   };
 
   const handleRestartVoting = () => {
-    console.log("handleRestartVoting");
     socket.emit("reset", roomId);
   };
 
@@ -157,7 +165,7 @@ function Room() {
         />
       </div>
 
-      {joinModal && <JoinRoomModal onSubmit={handleJoinRoom} />}
+      {joinModal && <JoinRoomModal roomId={roomId} onSubmit={handleJoinRoom} />}
     </main>
   );
 }

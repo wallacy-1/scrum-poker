@@ -3,19 +3,41 @@ import { Modal } from "../../organisms";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useChangeNameModal } from "../../../contexts";
-import socket from "../../../services/scrum-poker/webSocketService";
+import socket from "../../../services/web-socket-service";
 import { minNameLength, maxNameLength } from "../../../constants/player-name";
+import axiosInstance from "../../../services/axios-instance";
+import axios from "axios";
 
 const ChangeNameModal = () => {
   const { t } = useTranslation();
-  const { oldName, targetId, closeNameModal } = useChangeNameModal();
+  const { oldName, roomId, targetId, closeNameModal } = useChangeNameModal();
   const { register, handleSubmit, formState } = useForm();
 
-  const handleChangeName = (data: { newPlayerName?: string }) => {
-    const nameNoWhiteSpace = data.newPlayerName?.trim();
-    if (nameNoWhiteSpace && nameNoWhiteSpace !== oldName) {
-      socket.emit("changeName", { targetId, newName: nameNoWhiteSpace });
+  const handleChangeName = async (data: { newPlayerName?: string }) => {
+    const newPlayerName = data?.newPlayerName?.trim();
+
+    if (!newPlayerName || newPlayerName === oldName) {
       closeNameModal();
+      return;
+    }
+
+    try {
+      await axiosInstance.get(`/scrumPoker/${roomId}/player/${newPlayerName}`);
+
+      socket.emit("changeName", { targetId, newName: newPlayerName });
+      closeNameModal();
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const statusCode = error.response?.status;
+
+        if (statusCode === 400) {
+          alert(t("form_common.name_already_taken_error"));
+        } else {
+          alert(t("common.strange_error"));
+        }
+      } else {
+        alert(t("common.unexpected_error"));
+      }
     }
   };
 
@@ -23,8 +45,8 @@ const ChangeNameModal = () => {
     <Modal
       title={
         targetId === socket.id
-          ? t("molecules.change_name_modal.title_main_player")
-          : t("molecules.change_name_modal.title", { oldName })
+          ? t("molecules.change_name_modal.title_main_player", { oldName })
+          : t("molecules.change_name_modal.title_other_player", { oldName })
       }
       backgroundOpacity
     >

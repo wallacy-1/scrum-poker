@@ -4,19 +4,44 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { JoinRoomModalPropsInterface } from "./interfaces";
 import { maxNameLength, minNameLength } from "../../../constants/player-name";
+import axiosInstance from "../../../services/axios-instance";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 // More input fields are planned for future updates.
-const JoinRoomModal: React.FC<JoinRoomModalPropsInterface> = ({ onSubmit }) => {
+const JoinRoomModal: React.FC<JoinRoomModalPropsInterface> = ({
+  roomId,
+  onSubmit,
+}) => {
   const { t } = useTranslation();
   const { register, handleSubmit, formState } = useForm();
   const storedName = localStorage.getItem("playerName");
+  const navigate = useNavigate();
 
-  const handleJoinRoom = (data: { playerName?: string }) => {
-    const nameNoWhiteSpace = data.playerName?.trim();
+  const handleJoinRoom = async (data: { playerName?: string }) => {
+    const playerName = data?.playerName?.trim();
+    if (!playerName) return;
 
-    if (nameNoWhiteSpace && nameNoWhiteSpace !== "") {
-      localStorage.setItem("playerName", nameNoWhiteSpace);
-      onSubmit(nameNoWhiteSpace);
+    try {
+      await axiosInstance.get(`/scrumPoker/${roomId}/player/${playerName}`);
+
+      localStorage.setItem("playerName", playerName);
+      onSubmit(playerName);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const statusCode = error.response?.status;
+
+        if (statusCode === 400) {
+          alert(t("form_common.name_already_taken_error"));
+        } else if (statusCode === 404) {
+          alert(t("screens.room.room_not_found"));
+          navigate("/");
+        } else {
+          alert(t("common.strange_error"));
+        }
+      } else {
+        alert(t("common.unexpected_error"));
+      }
     }
   };
 
@@ -49,7 +74,8 @@ const JoinRoomModal: React.FC<JoinRoomModalPropsInterface> = ({ onSubmit }) => {
           error={formState.errors.playerName}
         />
 
-        <div className="flex justify-end pt-2 mt-5 border-t">
+        <div className="flex justify-between pt-2 mt-5 border-t">
+          <Button onClick={() => navigate("/")}>{t("common.cancel")}</Button>
           <Button
             type="submit"
             color={`${formState.errors.playerName ? "danger" : "primary"}`}

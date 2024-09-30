@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import socket from "../../../services/scrum-poker/webSocketService";
+import socket from "../../../services/web-socket-service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { DeckPropsInterface } from "./interfaces";
@@ -37,9 +37,9 @@ const Deck = ({ onClose, show, mainPlayerChoice }: DeckPropsInterface) => {
         />
       </div>
       <div className="flex flex-wrap justify-center w-full px-4 pb-2 select-none grow">
-        {fibonacciDefault.map((cardValue, index) => (
+        {fibonacciDefault.map((cardValue) => (
           <div
-            key={index}
+            key={cardValue}
             role="button"
             aria-label={`Card ${cardValue}`}
             className={`pt-10 w-24 text-4xl h-32 text-center mb-2 mx-2 rounded cursor-pointer ${
