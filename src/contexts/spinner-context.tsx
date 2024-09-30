@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useMemo, useState } from "react";
 import { Spinner } from "../components/molecules";
 
 interface SpinnerContextInterface {
@@ -18,8 +18,13 @@ export const SpinnerProvider: React.FC<{
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState<string | undefined>("");
 
+  const contextValue = useMemo(
+    () => ({ title, loading, setTitle, setLoading }),
+    [title, loading]
+  );
+
   return (
-    <SpinnerContext.Provider value={{ title, loading, setTitle, setLoading }}>
+    <SpinnerContext.Provider value={contextValue}>
       {children}
       {loading && <Spinner />}
     </SpinnerContext.Provider>

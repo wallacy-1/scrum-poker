@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useMemo, useState } from "react";
 import { ChangeChoiceModal } from "../components/molecules";
 
 interface ChangeChoiceModalContextInterface {
@@ -32,16 +32,19 @@ export const ChangeChoiceModalProvider: React.FC<{
     setIsOpen(false);
   };
 
+  const contextValue = useMemo(
+    () => ({
+      playerName,
+      cardValues,
+      targetId,
+      openChoiceModal,
+      closeChoiceModal,
+    }),
+    [playerName, cardValues, targetId]
+  );
+
   return (
-    <ChangeChoiceModalContext.Provider
-      value={{
-        playerName,
-        cardValues,
-        targetId,
-        openChoiceModal,
-        closeChoiceModal,
-      }}
-    >
+    <ChangeChoiceModalContext.Provider value={contextValue}>
       {children}
       {isOpen && <ChangeChoiceModal />}
     </ChangeChoiceModalContext.Provider>
