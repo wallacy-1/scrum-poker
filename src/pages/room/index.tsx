@@ -1,7 +1,7 @@
 import { Button } from "../../components/atoms";
 import { Deck, Board, JoinRoomModal } from "../../components/molecules";
 import { useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import socket from "../../services/web-socket-service";
 import { getMainPlayer, updateFavicon } from "../../utils";
 import { Navbar } from "../../components/organisms";
@@ -12,13 +12,17 @@ import {
   RoomStatusEnum,
 } from "./interfaces";
 import { useTranslation } from "react-i18next";
+import { useChangeNameModal, useSpinner } from "../../contexts";
+import axiosInstance from "../../services/axios-instance";
 
 function Room() {
   const { t } = useTranslation();
   const [roomData, setRoomData] = useState<RoomDataInterface>();
-  const [joinModal, setJoinModal] = useState(true);
+  const [joinModal, setJoinModal] = useState(false);
   const [showDeck, setShowDeck] = useState(true);
-
+  const { setRoomId } = useChangeNameModal();
+  const { setLoading } = useSpinner();
+  const navigate = useNavigate();
   const { roomId } = useParams();
 
   const mainPlayer: PlayerDataInterface | null = useMemo(() => {
@@ -27,6 +31,26 @@ function Room() {
 
   const canVoteAndIsVoting =
     mainPlayer?.canVote && roomData?.status === RoomStatusEnum.VOTING;
+
+  useEffect(() => {
+    setLoading(true);
+
+    const validateRoom = async () => {
+      try {
+        await axiosInstance.get("/scrumPoker/" + roomId);
+
+        setRoomId(roomId);
+        setJoinModal(true);
+      } catch (error) {
+        alert(t("screens.room.room_not_found"));
+        navigate("/");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    validateRoom();
+  }, [navigate, roomId, setLoading, setRoomId, t]);
 
   useEffect(() => {
     socket.connect();
@@ -38,25 +62,26 @@ function Room() {
     socket.on("playerKicked", (playerId: string) => {
       if (playerId === socket.id) {
         alert("The admin kick you from room.");
-        window.location.href = "/";
+        navigate("/");
         setRoomData(undefined);
       }
     });
 
     socket.on("error", (message: string) => {
       alert(message);
-      window.location.href = "/";
+      navigate("/");
     });
 
     socket.on("disconnect", () => {
       alert("Disconnected from server");
+      navigate("/");
     });
 
     return () => {
       socket.removeAllListeners();
       socket.disconnect();
     };
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     if (roomData?.status) {
@@ -140,7 +165,7 @@ function Room() {
         />
       </div>
 
-      {joinModal && <JoinRoomModal onSubmit={handleJoinRoom} />}
+      {joinModal && <JoinRoomModal roomId={roomId} onSubmit={handleJoinRoom} />}
     </main>
   );
 }

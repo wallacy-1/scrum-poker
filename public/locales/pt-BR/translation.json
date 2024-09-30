@@ -12,12 +12,15 @@
     "submit": "Enviar",
     "create": "Criar",
     "save": "Salvar",
-    "loading": "Carregando..."
+    "loading": "Carregando...",
+    "strange_error": "Ops, algo deu errado. Por favor, tente novamente mais tarde.",
+    "unexpected_error": "Ocorreu um erro inesperado ao processar sua solicitação. Por favor, tente novamente mais tarde."
   },
   "form_common": {
     "min_length_error": "O tamanho mínimo é de {{minNameLength}} caracteres.",
     "max_length_error": "O tamanho máximo é de {{maxNameLength}} caracteres.",
     "pattern_no_especial_caracteres_error": "Somente letras (A-Z) e números (0-9) são permitidos.",
+    "name_already_taken": "Esse nome já está em uso. Por favor, escolha outro!",
     "required_player_name_error": "O nome do jogador é obrigatório."
   },
   "screens": {
@@ -31,6 +34,8 @@
       "vote_button_hide": "Esconder cartas",
       "reveal_cards": "Revelar cartas",
       "restart_voting": "Reiniciar votação",
+      "checking_room": "Validando sala",
+      "room_not_found": "Sala não encontrada.",
       "join": "Entrar na sala",
       "player_name_input": "Nome do jogador"
     }

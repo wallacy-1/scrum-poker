@@ -12,12 +12,15 @@
     "submit": "Submit",
     "create": "Create",
     "save": "Save",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "strange_error": "Oops, something went wrong. Please try again later.",
+    "unexpected_error": "An unexpected error occurred while processing your request. Please try again later."
   },
   "form_common": {
     "min_length_error": "Minimum length is {{minNameLength}} characters.",
     "max_length_error": "Maximum length is {{maxNameLength}} characters.",
     "pattern_no_especial_caracteres_error": "Only letters (A-Z) and numbers (0-9) are allowed.",
+    "name_already_taken_error": "That name is already taken. Please choose another one!",
     "required_player_name_error": "Player name is required."
   },
   "screens": {
@@ -31,6 +34,8 @@
       "vote_button_hide": "Hide cards",
       "reveal_cards": "Reveal cards",
       "restart_voting": "Restart voting",
+      "checking_room": "Checking room",
+      "room_not_found": "Room not found.",
       "join": "Join Room",
       "player_name_input": "Player name"
     }
