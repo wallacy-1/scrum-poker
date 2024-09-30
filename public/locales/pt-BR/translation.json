@@ -20,7 +20,7 @@
     "min_length_error": "O tamanho mínimo é de {{minNameLength}} caracteres.",
     "max_length_error": "O tamanho máximo é de {{maxNameLength}} caracteres.",
     "pattern_no_especial_caracteres_error": "Somente letras (A-Z) e números (0-9) são permitidos.",
-    "name_already_taken": "Esse nome já está em uso. Por favor, escolha outro!",
+    "name_already_taken_error": "Esse nome já está em uso. Por favor, escolha outro!",
     "required_player_name_error": "O nome do jogador é obrigatório."
   },
   "screens": {
