@@ -3,7 +3,7 @@ import { Deck, Board, JoinRoomModal } from "../../components/molecules";
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import socket from "../../services/web-socket-service";
-import { getMainPlayer } from "../../utils";
+import { getMainPlayer, updateFavicon } from "../../utils";
 import { Navbar } from "../../components/organisms";
 import {
   PlayerDataInterface,
@@ -60,14 +60,6 @@ function Room() {
 
   useEffect(() => {
     if (roomData?.status) {
-      let link: any = document.querySelector("link[rel*='icon']");
-
-      if (!link) {
-        link = document.createElement("link");
-        link.rel = "icon";
-        document.getElementsByTagName("head")[0].appendChild(link);
-      }
-
       if (roomData.status === RoomStatusEnum.VOTING) {
         document.title = t("dynamic_title.voting", {
           votedCount: roomData.votedPlayersCount,
@@ -78,19 +70,18 @@ function Room() {
       }
 
       if (roomData.status === RoomStatusEnum.REVEAL) {
-        link.href = "/favicon-blue.png";
+        updateFavicon("/favicon-blue.png");
       } else if (roomData.votingPlayersCount === 0) {
-        link.href = "/favicon-green.png";
+        updateFavicon("/favicon-green.png");
       } else if (roomData.votedPlayersCount >= roomData.votingPlayersCount) {
-        link.href = "/favicon-yellow.png";
+        updateFavicon("/favicon-yellow.png");
       } else {
-        link.href = "/favicon-red.png";
+        updateFavicon("/favicon-red.png");
       }
     }
 
     return () => {
-      const link: any = document.querySelector("link[rel*='icon']");
-      link.href = "/favicon-default.png";
+      updateFavicon("/favicon-default.png");
       document.title = t("dynamic_title.default");
     };
   }, [
