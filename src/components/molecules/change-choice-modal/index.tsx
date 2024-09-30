@@ -3,7 +3,7 @@ import { Button } from "../../atoms";
 import { Modal } from "../../organisms";
 import { useTranslation } from "react-i18next";
 import { useChangeChoiceModal } from "../../../contexts";
-import socket from "../../../services/scrum-poker/webSocketService";
+import socket from "../../../services/web-socket-service";
 
 const ChangeChoiceModal = () => {
   const { t } = useTranslation();

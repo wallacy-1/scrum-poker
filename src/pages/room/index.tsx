@@ -2,7 +2,7 @@ import { Button } from "../../components/atoms";
 import { Deck, Board, JoinRoomModal } from "../../components/molecules";
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import socket from "../../services/scrum-poker/webSocketService";
+import socket from "../../services/web-socket-service";
 import { getMainPlayer } from "../../utils";
 import { Navbar } from "../../components/organisms";
 import {

@@ -6,7 +6,7 @@ import {
   faPenToSquare,
   faUpLong,
 } from "@fortawesome/free-solid-svg-icons";
-import socket from "../../../services/scrum-poker/webSocketService";
+import socket from "../../../services/web-socket-service";
 import { MenuItem } from "../../atoms";
 import { Menu } from "../../organisms";
 import { PlayerConfigurationMenuPropsInterface } from "./interfaces";

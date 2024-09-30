@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import socket from "../../../services/scrum-poker/webSocketService";
+import socket from "../../../services/web-socket-service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { DeckPropsInterface } from "./interfaces";

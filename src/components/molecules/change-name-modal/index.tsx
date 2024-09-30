@@ -3,7 +3,7 @@ import { Modal } from "../../organisms";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useChangeNameModal } from "../../../contexts";
-import socket from "../../../services/scrum-poker/webSocketService";
+import socket from "../../../services/web-socket-service";
 import { minNameLength, maxNameLength } from "../../../constants/player-name";
 
 const ChangeNameModal = () => {

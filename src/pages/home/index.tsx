@@ -4,6 +4,7 @@ import socket from "../../services/scrum-poker/webSocketService";
 import { useEffect } from "react";
 import { Navbar } from "../../components/organisms";
 import { useNavigate } from "react-router-dom";
+import socket from "../services/web-socket-service";
 
 function Home() {
   const { t } = useTranslation();
