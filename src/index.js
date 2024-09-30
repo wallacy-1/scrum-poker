@@ -6,7 +6,11 @@ import "./index.css";
 import Home from "./pages/home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Room from "./pages/room";
-import { ChangeNameModalProvider, ChangeChoiceModalProvider } from "./contexts";
+import {
+  ChangeNameModalProvider,
+  ChangeChoiceModalProvider,
+  SpinnerProvider,
+} from "./contexts";
 import { Analytics } from "@vercel/analytics/react";
 import "./i18n";
 
@@ -23,12 +27,14 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
-  <ChangeNameModalProvider>
-    <ChangeChoiceModalProvider>
-      <RouterProvider router={router} />
-      <Analytics />
-    </ChangeChoiceModalProvider>
-  </ChangeNameModalProvider>
+  <SpinnerProvider>
+    <ChangeNameModalProvider>
+      <ChangeChoiceModalProvider>
+        <RouterProvider router={router} />
+        <Analytics />
+      </ChangeChoiceModalProvider>
+    </ChangeNameModalProvider>
+  </SpinnerProvider>
   // </React.StrictMode>
 );
 

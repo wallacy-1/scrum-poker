@@ -6,3 +6,4 @@ export { default as ChangeChoiceModal } from "./change-choice-modal";
 export { default as LanguageSelector } from "./language-selector";
 export { default as InvitePlayersModal } from "./invite-players-modal";
 export { default as JoinRoomModal } from "./join-room-modal";
+export { default as Spinner } from "./spinner";
