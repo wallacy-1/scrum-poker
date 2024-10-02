@@ -2,6 +2,7 @@
   "name": "to-do-scrum-front",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",

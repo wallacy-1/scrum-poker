@@ -34,12 +34,12 @@ const Board = ({ roomData, mainPlayerIsAdmin }: BoardPropsInterface) => {
   }, [roomData?.status]);
 
   return (
-    <div className="flex flex-col justify-between flex-grow bg-gray-700 min-h-80">
+    <div className="flex flex-col justify-between flex-grow text-white bg-gray-700 min-h-80">
       {averageChoice !== undefined && (
         <div className="grid self-start grid-cols-3 gap-3 pt-1 pl-5 text-center">
-          <p className="text-white">{t("min")}</p>
-          <p className="text-white">{t("max")}</p>
-          <p className="text-white">{t("average")}</p>
+          <p>{t("min")}</p>
+          <p>{t("max")}</p>
+          <p>{t("average")}</p>
 
           <Button
             size="lg"
@@ -85,8 +85,8 @@ const Board = ({ roomData, mainPlayerIsAdmin }: BoardPropsInterface) => {
         </div>
       )}
 
-      <div className="flex flex-wrap items-center justify-center flex-grow">
-        <div className="flex">
+      <div className="flex flex-wrap items-center justify-center flex-grow pt-5 pb-5">
+        <div className="flex flex-wrap justify-center gap-2">
           {players?.map((player) => (
             <PlayerCard
               key={player.id}

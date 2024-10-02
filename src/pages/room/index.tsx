@@ -130,7 +130,7 @@ function Room() {
   };
 
   return (
-    <main className="flex flex-col h-screen bg-gray-700">
+    <main className="flex flex-col min-h-screen bg-gray-700">
       <Navbar inviteModal />
 
       <Board
@@ -138,7 +138,7 @@ function Room() {
         mainPlayerIsAdmin={mainPlayer?.role === PlayerRolesEnum.ADMIN}
       />
 
-      <div className="w-full mt-2 align-bottom bg-gray-600">
+      <div className="w-full mt-2 bg-gray-600">
         <div className="flex justify-center gap-3 py-2">
           {canVoteAndIsVoting && (
             <Button onClick={() => setShowDeck(!showDeck)}>
