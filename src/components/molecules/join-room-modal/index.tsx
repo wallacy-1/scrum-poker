@@ -63,7 +63,7 @@ const JoinRoomModal: React.FC<JoinRoomModalPropsInterface> = ({
               message: t("form_common.max_length_error", { maxNameLength }),
             },
             pattern: {
-              value: /^[a-zA-Z0-9.-]+$/,
+              value: /^[a-zA-Z0-9. -]+$/,
               message: t("form_common.pattern_no_especial_caracteres_error"),
             },
             required: {
