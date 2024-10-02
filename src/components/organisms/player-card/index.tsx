@@ -40,11 +40,11 @@ const PlayerCard: React.FC<PlayerCardPropsInterface> = ({
 
   return (
     <div
-      className={`flex flex-col justify-end px-1 w-34 transition-all duration-700 ${
-        isHighlighted ? "mb-4" : ""
+      className={`flex flex-col justify-end px-1 w-32 transition-all duration-700 ${
+        isHighlighted ? "mb-4" : "-mb-4"
       }`}
     >
-      <div className="flex flex-col w-full">
+      <div className="flex flex-col w-full pl-2">
         {isAdmin && (
           <FontAwesomeIcon
             title={t("admin_icon_title")}
