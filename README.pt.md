@@ -1,10 +1,10 @@
 # Scrum Poker
 
-Scrum Poker é utilizado para facilitar a definição de pontos/peso de histórias dentro de um time Scrum.
+Scrum Poker é utilizado para facilitar a definição de pontos/peso de histórias dentro de um time ágil que utiliza Scrum.
 
-production: <https://scrum-poker-three.vercel.app/>
+Produção: <https://scrum-poker-three.vercel.app/>
 
-_Ler em outros idiomas: [Inglês](README.md)_
+_Ler em outros idiomas: [English](README.md)_
 
 ## Índice
 
@@ -12,6 +12,7 @@ _Ler em outros idiomas: [Inglês](README.md)_
   - [Índice](#índice)
   - [Sobre](#sobre)
   - [Funcionalidades](#funcionalidades)
+    - [O que está por vir](#o-que-está-por-vir)
   - [Uso](#uso)
     - [Criação de uma sala](#criação-de-uma-sala)
     - [Imagens](#imagens)
@@ -36,6 +37,17 @@ O Scrum Poker é uma ferramenta de planejamento utilizada por equipes de desenvo
 - Suporte a múltiplos jogadores em tempo real (via WebSocket)
 - Suporte aos idiomas Portugues-BR e ingles (i18n)
 - Ao revelar as pontuações, são exibidos o Maior, o Menor e a Média dos valores
+  
+### O que está por vir
+- [ ] Tarefas/Histórias
+- [ ] Votos customizados
+- [ ] Adicionar sala anterior na Home para acesso rápido
+- [ ] Timer
+- [ ] Melhorar display de erros
+- [ ] Storybook
+- [ ] Perguntar para todos os jogadores (Sim ou não)
+- [ ] Filtro para linguagem imprópria
+- [ ] Efeitos especiais
 
 ## Uso
 
