@@ -38,6 +38,11 @@
       "room_not_found": "Room not found.",
       "join": "Join Room",
       "player_name_input": "Player name"
+    },
+    "not_found": {
+      "title": "Page Not Found",
+      "description": "Oops! The page you are looking for does not exist.",
+      "link_home": "Go Back Home"
     }
   },
   "atoms": {

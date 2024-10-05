@@ -6,6 +6,7 @@ import "./index.css";
 import Home from "./pages/home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Room from "./pages/room";
+import NotFound from "./pages/not-found";
 import {
   ChangeNameModalProvider,
   ChangeChoiceModalProvider,
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "/room/:roomId",
     element: <Room />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 
