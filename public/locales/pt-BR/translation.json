@@ -38,6 +38,11 @@
       "room_not_found": "Sala não encontrada.",
       "join": "Entrar na sala",
       "player_name_input": "Nome do jogador"
+    },
+    "not_found": {
+      "title": "Page Not Found",
+      "description": "Oops! The page you are looking for does not exist.",
+      "link_home": "Go Back Home"
     }
   },
   "atoms": {
