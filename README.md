@@ -1,10 +1,10 @@
 # Scrum Poker
 
-Scrum Poker is a tool used to facilitate story point estimation within a Scrum team.
+Scrum Poker is a tool used to facilitate story point estimation within a agile Scrum team.
 
-production: <https://scrum-poker-three.vercel.app/>
+Production: <https://scrum-poker-three.vercel.app/>
 
-_Read this in other languages: [Portugues-BR](README.pt.md)_
+_Read this in other languages: [Portuguese-BR](README.pt.md)_
 
 ## Table of Contents
 
@@ -12,6 +12,7 @@ _Read this in other languages: [Portugues-BR](README.pt.md)_
   - [Table of Contents](#table-of-contents)
   - [About](#about)
   - [Features](#features)
+    - [What's coming next](#whats-coming-next)
   - [Usage](#usage)
     - [Creating a room](#creating-a-room)
     - [Images](#images)
@@ -40,6 +41,17 @@ Scrum Poker is a planning tool used by agile development teams to estimate the r
 - Modals for user interactions (changing name and choice)
 - Good layout to mobile
 - On reveal show min, max and average.
+
+### What's coming next
+- [ ] Tasks
+- [ ] Custom votes
+- [ ] Add previous room at home for fastest access
+- [ ] Timer
+- [ ] Improve error display
+- [ ] Storybook
+- [ ] Ask a question to all players (Yes or No)
+- [ ] Filter for bad words
+- [ ] Special effects
 
 ## Usage
 
